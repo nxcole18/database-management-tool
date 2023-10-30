@@ -1,4 +1,4 @@
-### Team 21 - Sports Tournament Database
+# Team 21 - Sports Tournament Database
 
 ## Summary
 
