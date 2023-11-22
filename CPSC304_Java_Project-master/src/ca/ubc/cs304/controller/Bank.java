@@ -50,7 +50,7 @@ public class Bank implements LoginWindowDelegate, TerminalTransactionsDelegate {
 	}
 	
 	/**
-	 * TermainalTransactionsDelegate Implementation
+	 * TerminalTransactionsDelegate Implementation
 	 * 
 	 * Insert a branch with the given info
 	 */
