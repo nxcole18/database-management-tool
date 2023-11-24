@@ -1,16 +1,3 @@
-CREATE TABLE Team1(
-	Organization VARCHAR(50) PRIMARY KEY,
-	Country VARCHAR(50) NOT NULL
-);
-
-CREATE TABLE Team2(
-	ID INT PRIMARY KEY,
-	Name VARCHAR(50) UNIQUE NOT NULL,
-	Organization VARCHAR(50) NOT NULL,
-	FOREIGN KEY (Organization) REFERENCES Team1(Organization)
-        ON DELETE CASCADE
-);
-
 INSERT INTO Team1(Organization, Country)
 VALUES
 	('KSV GEN', 'SK'),
@@ -50,3 +37,17 @@ VALUES
 	(15, 'BDS', 'BDS Gaming'),
 	(16, 'GAM', 'Giga');
 
+CREATE TABLE PLAYER(
+	ID INT PRIMARY KEY,
+	First_name VARCHAR NOT NULL,
+	Last_name VARCHAR NOT NULL,
+	Country VARCHAR NOT NULL,
+	Join_date DATE NOT NULL,
+	Ranking INT UNIQUE NOT NULL,
+	Team_ID INT NOT NULL,
+FOREIGN KEY (Team_ID) REFERENCES Team(ID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+INSERT INTO Player(ID, First_name, Last_name, Country, Join_date, Ranking, Team_ID)
+VALUES
+	(),
