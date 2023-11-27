@@ -1,18 +1,68 @@
+-- sqlplus ora_ethanz01@stu
+
 -- insert
-INSERT INTO Player VALUES (998, 'Jack', 'Zhen', 'Canada', DATE '2023-09-05', 10300, 101);
+INSERT INTO Player 
+VALUES (998, 'Jack', 'Zhen', 'Canada', DATE '2023-09-05', 10300, 101);
+
+-- Should trigger error because team doesn't exist. Should be able to handle that
+INSERT INTO Player 
+VALUES (998, 'Nave', 'Ecatz', 'Canada', DATE '2023-04-05', 10400, 109);
+
 
 -- update
+UPDATE Player
+SET ranking = 10020
+WHERE ID = 998;
+-- can set any column you want
 
 -- delete
+DELETE FROM Team2
+where ID = 102;
+-- cascades and deletes players and sets tournament winner to null
 
 -- select (relational algebra select NOT SELECT statement)
+SELECT *
+FROM Player
+WHERE ID = 998;
 
 -- project
+SELECT First_name
+FROM Player;
+-- both columns and tables have to be dynamic (can be chosen by user even with randomly added tables)
 
 -- join
-
+SELECT First_name, Last_name
+FROM Player, Team2
+WHERE Player.Team_ID = Team2.ID;
+-- find all the players who are part of a team
 
 -- aggregation group by
+SELECT AVG(ranking) AS Average_Team_Ranking
+FROM Player
+GROUP BY Team_ID;
+-- average ranking of a team
+
 -- having aggregation
+SELECT Venue_name, AVG(Capacity) AS avg_capacity
+FROM Tournament t, Match2 m
+WHERE t.Name = m.Tournament_name AND t.Start_date = m.Tournament_Start_date
+GROUP BY Venue_name
+HAVING COUNT(*) < 2;
+-- might change later to > 5 or something to get bigger venues if we have more entries
+
 -- nested aggregation group by
+
+CREATE VIEW Teams_with_experienced_coaches AS
+SELECT t.ID
+FROM Team2 t, Coach c
+WHERE t.ID = c.Team_ID AND c.Years_experience > 5;
+
+SELECT Winner, COUNT(*) AS matches_won
+FROM Match2
+GROUP BY winner
+HAVING winner NOT IN (SELECT ID FROM Teams_with_experienced_coaches);
+-- finding how many matches each team with an unexperienced coach 
+-- (defined by having 5 or less years experience) has won
+
+
 -- division
