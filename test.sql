@@ -1,3 +1,5 @@
+-- sqlplus ora_ethanz01@stu
+
 -- use this to play around with queries and see results
 -- so you don't have to type everything again.
 CREATE VIEW Teams_with_experienced_coaches AS
