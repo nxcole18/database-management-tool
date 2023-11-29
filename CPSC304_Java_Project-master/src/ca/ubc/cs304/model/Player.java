@@ -1,4 +1,5 @@
 package ca.ubc.cs304.model;
+import java.sql.Date;
 
 public class Player {
     private final int id;
@@ -8,7 +9,7 @@ public class Player {
 
     private final String country;
 
-    private final String join_date;
+    private final Date join_date;
 
     private final int ranking;
 
@@ -18,7 +19,7 @@ public class Player {
                    String first_name,
                    String last_name,
                    String country,
-                   String join_date,
+                   Date join_date,
                    int ranking,
                    int team_id) {
         this.id = id;
@@ -42,7 +43,7 @@ public class Player {
         return country;
     }
 
-    public String getJoin_date() {
+    public java.sql.Date getJoin_date() {
         return join_date;
     }
 
