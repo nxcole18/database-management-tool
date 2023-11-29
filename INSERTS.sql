@@ -20,17 +20,6 @@ VALUES
 	(07, 'WBG', 'Weibo'),
 	(08, 'NRG', 'NR');
 
-CREATE TABLE PLAYER(
-	ID INT PRIMARY KEY,
-	First_name VARCHAR NOT NULL,
-	Last_name VARCHAR NOT NULL,
-	Country VARCHAR NOT NULL,
-	Join_date DATE NOT NULL,
-	Ranking INT UNIQUE NOT NULL,
-	Team_ID INT NOT NULL,
-FOREIGN KEY (Team_ID) REFERENCES Team(ID) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
 INSERT INTO Player(ID, First_name, Last_name, Country, Join_date, Ranking, Team_ID)
 VALUES
 	(11, 'Doran', 'Choi', 'SK', '2022-01-01', 11, 01),
