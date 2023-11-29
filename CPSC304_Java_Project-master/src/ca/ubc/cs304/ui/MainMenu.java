@@ -7,9 +7,9 @@ import java.awt.event.ActionListener;
 
 public class MainMenu extends JFrame implements ActionListener {
     private static final int WIDTH = 580;
-    private static final int HEIGHT = 400;
-    private static final String IMG_FILE = "project_b7i8b_g3i0k_v7o6b\\CPSC304_Java_Project-master\\src\\tourneyCup.png";
-    private JButton insertTourneyButton, insertMatchButton, insertTeamButton, insertTeamMemButton, deleteButton, updateButton, viewButton;
+    private static final int HEIGHT = 300;
+    private static final String IMG_FILE = "src\\tourneyCup.png";
+    private JButton insertPlayer, deleteButton, updateButton, viewButton, viewButton1, viewButton2, viewButton3;
 
     public MainMenu() {
         super("Menu");
@@ -40,13 +40,13 @@ public class MainMenu extends JFrame implements ActionListener {
         initButtons();
 
         // add everything to the panel
-        tab1.add(insertTourneyButton);
-        tab1.add(insertMatchButton);
-        tab1.add(insertTeamButton);
-        tab1.add(insertTeamMemButton);
+        tab1.add(insertPlayer);
         tab2.add(deleteButton);
         tab2.add(updateButton);
         tab3.add(viewButton);
+        tab3.add(viewButton1);
+        tab3.add(viewButton2);
+        tab3.add(viewButton3);
 
         // add image
         JLabel img = new JLabel(new ImageIcon(IMG_FILE)); /// !!! not working
@@ -62,18 +62,18 @@ public class MainMenu extends JFrame implements ActionListener {
     private void initHeader(JPanel header) {
         header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
 
-        JLabel pageTitle = new JLabel("Tournament Database");
+        JLabel pageTitle = new JLabel(" Tournament Database");
         pageTitle.setFont(new Font("Sans serif", Font.BOLD, 19));
 
         JLabel pageSubHeading = new JLabel("— Main Menu");
         pageSubHeading.setFont(new Font("Sans serif", Font.BOLD, 13));
         pageSubHeading.setForeground(new Color(56, 133, 193));
 
-        JLabel whitespace1 = new JLabel("1");
+        JLabel whitespace1 = new JLabel("  ");
         whitespace1.setFont(new Font("Sans serif", Font.BOLD, 8));
         whitespace1.setForeground(Color.white);
 
-        JLabel whitespace2 = new JLabel("1");
+        JLabel whitespace2 = new JLabel("  ");
         whitespace2.setForeground(Color.white);
         whitespace2.setFont(new Font("Sans serif", Font.BOLD, 8));
 
@@ -93,15 +93,15 @@ public class MainMenu extends JFrame implements ActionListener {
     }
 
     private void initButtons() {
-        insertTourneyButton = new JButton("New Tournament");
-        insertMatchButton = new JButton("New Match");
-        insertTeamButton = new JButton("New Team");
-        insertTeamMemButton = new JButton("New Team Member");
-        deleteButton = new JButton("Delete Team Member");
-        updateButton = new JButton("Update Match");
-        viewButton = new JButton("Match");
+        insertPlayer = new JButton("New Player");
+        deleteButton = new JButton("Delete Team");
+        updateButton = new JButton("Update Player");
+        viewButton = new JButton("Player");
+        viewButton1 = new JButton("Player");
+        viewButton2 = new JButton("Player");
+        viewButton3 = new JButton("Player");
 
-        JButton[] buttonArr = {insertTourneyButton, insertMatchButton, insertTeamButton, insertTeamMemButton, deleteButton, updateButton, viewButton};
+        JButton[] buttonArr = {insertPlayer, deleteButton, updateButton, viewButton, viewButton1, viewButton2, viewButton3};
 
         for (JButton b:buttonArr){
             decorateButton(b);
@@ -118,16 +118,17 @@ public class MainMenu extends JFrame implements ActionListener {
     }
 
     private void initButtonListeners() {
-        //ActionListener insertButtonListener = e -> new InsertTable();
-        //insertButton.addActionListener(insertButtonListener);
+        ActionListener insertButtonListener = e -> new AddPlayer();
 
-        //ActionListener deleteButtonListener = e -> new OrderGUI();
-        //enterButton.addActionListener(enterButtonListener);
+        insertPlayer.addActionListener(insertButtonListener);
 
-        ActionListener updateButtonListener = e -> new UpdateTable();
+        ActionListener deleteButtonListener = e -> new DeleteTeam();
+        deleteButton.addActionListener(deleteButtonListener);
+
+        ActionListener updateButtonListener = e -> new UpdatePlayer();
         updateButton.addActionListener(updateButtonListener);
 
-        ActionListener viewButtonListener = e -> new ViewTable();
+        ActionListener viewButtonListener = e -> new ModifyMatch();
         viewButton.addActionListener(viewButtonListener);
     }
 
