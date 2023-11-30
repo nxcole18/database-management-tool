@@ -49,9 +49,9 @@ CREATE TABLE Match1(
 );
 
 CREATE TABLE Match2(
-	Match_Number INT,
+	Match_number INT,
 	Tournament_name VARCHAR(50) NOT NULL,
-	Tournament_Start_date DATE NOT NULL,
+	Tournament_start_date DATE NOT NULL,
 	FOREIGN KEY (Tournament_name, Tournament_Start_date) REFERENCES Tournament(Name, Start_date)
 		ON DELETE CASCADE,
 	Start_time TIMESTAMP(0) NOT NULL,
