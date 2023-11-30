@@ -324,6 +324,7 @@ public class TournieDBHandler {
         } catch (SQLException e) {
             System.out.println("sql exception :)");
         }
+        db.close();
     }
 
 }
