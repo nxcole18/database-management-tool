@@ -228,7 +228,7 @@ INSERT INTO Player		VALUES (999, 'Sylvia', 'Sin', 'Japan', DATE '2019-07-31', 7,
 INSERT INTO Player		VALUES (1010, 'Tim', 'Thomas', 'Finland', DATE '2022-10-31', 1, 105);
 
 
---new inserts for milestone5
+--new inserts for milestone4
 --based on LOL 2023 eliminiation rounds data
 INSERT INTO Venue VALUES ('Gocheok Sky Dome', 'Seoul', 'South Korea', 16744);
 
