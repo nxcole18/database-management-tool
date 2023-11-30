@@ -269,6 +269,37 @@ public class TournieDBHandler {
         }
     }
 
+    public ArrayList<ArrayList<String>> join(String country) throws SQLException{
+        try {
+            String query = "SELECT Name, t1.Organization FROM Team1 t1, Team2 t2 WHERE t1.Organization = t2.Organization AND t1.country = ?";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ps.setString(1, country);
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<ArrayList<String>> res = new ArrayList<>();
+
+            if (rs == null){
+                System.out.println("null");
+            }
+
+            while(rs.next()){
+                ArrayList<String> row = new ArrayList<>();
+                for (int i = 1; i < 3; i ++){
+                    row.add(rs.getObject(i).toString());
+                }
+                res.add(row);
+            }
+
+            connection.commit();
+            rs.close();
+            ps.close();
+            return res;
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+            throw e;
+        }
+    }
 
     private void rollbackConnection() {
         try  {
@@ -319,6 +350,10 @@ public class TournieDBHandler {
             ArrayList<ArrayList<String>> results = db.project(table, columns);
 
             for (ArrayList<String> list : results) {
+                System.out.println(String.join(", ", list));
+            }
+            ArrayList<ArrayList<String>> joined = db.join("Canada");
+            for (ArrayList<String> list : joined) {
                 System.out.println(String.join(", ", list));
             }
         } catch (SQLException e) {
