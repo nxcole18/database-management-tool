@@ -50,10 +50,10 @@ GROUP BY Team_ID;
 -- average ranking of a team
 
 -- having aggregation
-SELECT Venue_name, AVG(Capacity) AS avg_capacity
-FROM Tournament t, Match2 m
-WHERE t.Name = m.Tournament_name AND t.Start_date = m.Tournament_Start_date
-GROUP BY Venue_name
+SELECT v.City, AVG(Capacity) AS avg_capacity
+FROM Tournament t, Venue v
+WHERE t.Venue_name = v.Name AND t.Venue_city = v.City
+GROUP BY v.City
 HAVING COUNT(*) < 2;
 -- might change later to > 5 or something to get bigger venues if we have more entries
 
