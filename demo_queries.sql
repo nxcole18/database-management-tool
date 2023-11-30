@@ -8,6 +8,8 @@ VALUES (998, 'Jack', 'Zhen', 'Canada', DATE '2023-09-05', 10300, 101);
 INSERT INTO Player 
 VALUES (998, 'Nave', 'Ecatz', 'Canada', DATE '2023-04-05', 10400, 109);
 
+-- use function: insertPlayer
+
 
 -- update
 UPDATE Player
@@ -15,10 +17,13 @@ SET ranking = 10020
 WHERE ID = 998;
 -- can set any column you want
 
+-- use set of functions: updatePlayerId, updatePlayerFirstName etc.
+
 -- delete
 DELETE FROM Team2
 where ID = 102;
 -- cascades and deletes players and sets tournament winner to null
+-- use function: deletePlayer
 
 -- select (relational algebra select NOT SELECT statement)
 SELECT *
@@ -29,12 +34,14 @@ WHERE ID = 998;
 SELECT First_name
 FROM Player;
 -- both columns and tables have to be dynamic (can be chosen by user even with randomly added tables)
+-- use functions: getTables, getTableColumns, project
 
 -- join
-SELECT First_name, Last_name
-FROM Player, Team2
-WHERE Player.Team_ID = Team2.ID;
--- find all the players who are part of a team
+SELECT Name, Organization
+FROM Team1 t1, Team2 t2
+WHERE t1.Organization = t2.Organization AND t1.country = "China";
+-- find teams which are based in China
+-- user can specify which country to choose
 
 -- aggregation group by
 SELECT AVG(ranking) AS Average_Team_Ranking

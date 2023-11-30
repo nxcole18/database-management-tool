@@ -192,6 +192,84 @@ public class TournieDBHandler {
         }
     }
 
+    public ArrayList<String> getTables() throws SQLException{
+        try {
+            String query = "SELECT table_name FROM user_tables";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<String> table_names = new ArrayList<>();
+
+            while(rs.next()){
+                table_names.add(rs.getString("table_name"));
+            }
+
+            connection.commit();
+            rs.close();
+            ps.close();
+            return table_names;
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+            throw e;
+        }
+    }
+
+    public ArrayList<String> getTableColumns(String table) throws SQLException{
+        try {
+            String query = "SELECT column_name FROM USER_TAB_COLUMNS WHERE table_name = ?";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ps.setString(1, table);
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<String> res = new ArrayList<>();
+
+            while(rs.next()){
+                res.add(rs.getString("column_name"));
+            }
+
+            connection.commit();
+            rs.close();
+            ps.close();
+            return res;
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+            throw e;
+        }
+    }
+
+    public ArrayList<ArrayList<String>> project(String table, ArrayList<String> columns) throws SQLException{
+        try {
+            String join_cols = String.join(", ", columns);
+            String query = "SELECT " + join_cols +  " FROM " + table;
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<ArrayList<String>> res = new ArrayList<>();
+
+            while(rs.next()){
+                ArrayList<String> row = new ArrayList<>();
+                for (int i = 1; i < columns.size() + 1; i ++){
+                    row.add(rs.getObject(i).toString());
+                }
+                res.add(row);
+            }
+
+            connection.commit();
+            rs.close();
+            ps.close();
+            return res;
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+            throw e;
+        }
+    }
+
+
     private void rollbackConnection() {
         try  {
             connection.rollback();
@@ -229,6 +307,20 @@ public class TournieDBHandler {
             db.updatePlayerJoinDate(1, new Date(System.currentTimeMillis()));
             db.updatePlayerTeamId(1, 102);
             db.deletePlayer(1);
+            ArrayList<String> tables = db.getTables();
+            String table = tables.get(0);
+            System.out.println(db.getTables());
+            ArrayList<String> columns = db.getTableColumns(table);
+            System.out.println(columns);
+//            ArrayList<String> cs = new ArrayList<>();
+//            cs.add("NAME");
+//            cs.add("CAPACITY");
+//            cs.add("COUNTRY");
+            ArrayList<ArrayList<String>> results = db.project(table, columns);
+
+            for (ArrayList<String> list : results) {
+                System.out.println(String.join(", ", list));
+            }
         } catch (SQLException e) {
             System.out.println("sql exception :)");
         }
