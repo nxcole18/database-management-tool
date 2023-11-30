@@ -73,6 +73,7 @@ VALUES
 	('Quarterfinals3', 5),
 	('Quarterfinals4', 5);
 	 
-	 
-	 
+INSERT INTO Match2(Match_number, Tournament_name, Tournament_start_date, Start_time, Score, Team1, Team2, Winner, Stage)
+VALUES
+	(
 	 
