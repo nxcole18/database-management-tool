@@ -63,7 +63,15 @@ VALUES
 	(84, 'FBI', 'Huang', 'AUS', '2023-05-27', 84, 08),
 	(85, 'IgNar', 'Lee', 'SK', '2023-05-27', 85, 08);
 	
-	 
+INSERT INTO Match1(Stage, Rounds)
+VALUES
+	('Finals', 5),
+	('Semifinals1', 5),
+	('Semifinals2', 5),
+	('Quarterfinals1', 5),
+	('Quarterfinals2', 5),	
+	('Quarterfinals3', 5),
+	('Quarterfinals4', 5);
 	 
 	 
 	 
