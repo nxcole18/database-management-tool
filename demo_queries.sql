@@ -37,9 +37,9 @@ FROM Player;
 -- use functions: getTables, getTableColumns, project
 
 -- join
-SELECT Name, Organization
+SELECT Name, t1.Organization
 FROM Team1 t1, Team2 t2
-WHERE t1.Organization = t2.Organization AND t1.country = "China";
+WHERE t1.Organization = t2.Organization AND t1.country = "CN";
 -- find teams which are based in China
 -- user can specify which country to choose
 
