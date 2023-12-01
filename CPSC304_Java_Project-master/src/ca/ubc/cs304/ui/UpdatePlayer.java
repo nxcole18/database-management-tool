@@ -157,6 +157,8 @@ public class UpdatePlayer extends JFrame implements ActionListener {
                         "Player was successfully updated.",
                         "Success",
                         JOptionPane.PLAIN_MESSAGE);
+
+                this.dispose();
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
                         "Please ensure that you have valid inputs.",

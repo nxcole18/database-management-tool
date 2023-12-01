@@ -89,14 +89,15 @@ public class DeleteTeam extends JFrame implements ActionListener {
                         "Team " + teamS + " was successfully deleted.",
                         "Success",
                         JOptionPane.PLAIN_MESSAGE);
+                this.dispose();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,
+                        "Team does not exist. Try again.",
+                        "Error",
+                        JOptionPane.WARNING_MESSAGE);
             } catch (NumberFormatException exception) {
                 JOptionPane.showMessageDialog(null,
                         "Please ensure that you have input a number.",
-                        "Error",
-                        JOptionPane.WARNING_MESSAGE);
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null,
-                        "Error deleting from the database.",
                         "Error",
                         JOptionPane.WARNING_MESSAGE);
             }

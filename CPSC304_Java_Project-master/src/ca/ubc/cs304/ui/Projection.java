@@ -83,6 +83,7 @@ public class Projection extends JFrame implements ActionListener {
         if (e.getSource()==submit) {
             String table = (String) tableSelection.getSelectedItem();
             new Projection2(database, table);
+            this.dispose();
         }
     }
 

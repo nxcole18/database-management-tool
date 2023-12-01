@@ -177,7 +177,7 @@ public class TournieDBHandler {
 
             int rowCount = ps.executeUpdate();
             if (rowCount == 0) {
-                System.out.println(WARNING_TAG + " Team " + tid + " does not exist!");
+                throw new SQLException();
             }
 
             connection.commit();

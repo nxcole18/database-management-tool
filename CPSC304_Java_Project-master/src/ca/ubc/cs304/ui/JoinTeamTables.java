@@ -93,17 +93,14 @@ public class JoinTeamTables extends JFrame implements ActionListener {
                             "Tables were successfully joined.",
                             "Success",
                             JOptionPane.PLAIN_MESSAGE);
+
+                    this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(null,
                             "Please ensure you have an input and it is not a number.",
                             "Error",
                             JOptionPane.WARNING_MESSAGE);
                 }
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null,
-                        "Problem with database. Couldn't join.",
-                        "Error",
-                        JOptionPane.WARNING_MESSAGE);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,
                         "Please ensure you have valid inputs.",

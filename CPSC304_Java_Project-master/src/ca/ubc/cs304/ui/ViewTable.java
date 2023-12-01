@@ -14,29 +14,28 @@ public class ViewTable extends JFrame {
         setSize(500, 500);
         database = db;
 
-        if (source == "PROJECTION") {
-            try {
-                ArrayList<ArrayList<String>> results = database.project(table, columns);
-                DefaultTableModel model = new DefaultTableModel();
+        try {
+            ArrayList<ArrayList<String>> results = database.project(table, columns);
+            DefaultTableModel model = new DefaultTableModel();
 
-                for (String c: columns) {
-                    model.addColumn(c);
-                }
-
-                for (ArrayList<String> r: results) {
-                    model.addRow(r.toArray());
-                }
-
-                JTable resultsTable = new JTable(model);
-
-                add(new JScrollPane(resultsTable)); // ???
-                add(resultsTable);
-            } catch (Exception exception) {
-                JOptionPane.showMessageDialog(null,
-                        "Error projecting table.",
-                        "Error",
-                        JOptionPane.WARNING_MESSAGE);
+            for (String c: columns) {
+                model.addColumn(c);
             }
+
+            for (ArrayList<String> r: results) {
+                model.addRow(r.toArray());
+            }
+
+            JTable resultsTable = new JTable(model);
+
+            add(new JScrollPane(resultsTable)); // ???
+            add(resultsTable);
+
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(null,
+                    "Error projecting table.",
+                    "Error",
+                    JOptionPane.WARNING_MESSAGE);
         }
 
         setVisible(true);
