@@ -278,7 +278,7 @@ INSERT INTO Player VALUES (85, 'IgNar', 'Lee', 'South Korea', DATE '2023-05-27',
 
 INSERT INTO Venue VALUES ('Gocheok Sky Dome', 'Seoul', 'South Korea', 16744);
 
-INSERT INTO Tournament VALUES ('2023 LOL Worlds', DATE '2023-11-02', DATE '2023-11-19', 'Elimination', 'Gocheok Sky Dome', 'Seoul', 11, 02);
+INSERT INTO Tournament VALUES ('2023 LOL Worlds', DATE '2023-11-02', DATE '2023-11-19', 'Elimination', 'Gocheok Sky Dome', 'Seoul', 22, 02);
 
 INSERT INTO Match1 VALUES ('Finals', 5);
 INSERT INTO Match1 VALUES ('Semifinals1', 5);
