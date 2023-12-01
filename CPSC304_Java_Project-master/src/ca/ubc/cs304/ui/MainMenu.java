@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 public class MainMenu extends JFrame implements ActionListener {
     private static final int WIDTH = 580;
@@ -111,7 +110,7 @@ public class MainMenu extends JFrame implements ActionListener {
 
     private void initButtons() {
         insertPlayer = new JButton("New Player");
-        deleteButton = new JButton("Delete Player");
+        deleteButton = new JButton("Delete Team");
         updateButton = new JButton("Update Player");
         viewButton = new JButton("Selection");
         viewButton1 = new JButton("Projection");
@@ -140,7 +139,7 @@ public class MainMenu extends JFrame implements ActionListener {
 
         insertPlayer.addActionListener(insertButtonListener);
 
-        ActionListener deleteButtonListener = e -> new DeletePlayer(database);
+        ActionListener deleteButtonListener = e -> new DeleteTeam(database);
         deleteButton.addActionListener(deleteButtonListener);
 
         ActionListener updateButtonListener = e -> new UpdatePlayer(database);

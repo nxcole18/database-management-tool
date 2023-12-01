@@ -8,13 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-public class DeletePlayer extends JFrame implements ActionListener {
-    private JTextField playerF;
+public class DeleteTeam extends JFrame implements ActionListener {
+    private JTextField teamF;
     private JButton submit;
     TournieDBHandler database;
 
-    public DeletePlayer(TournieDBHandler db) {
-        super("Delete Player");
+    public DeleteTeam(TournieDBHandler db) {
+        super("Delete Team");
         database = db;
 
         setSize(370, 185);
@@ -36,7 +36,7 @@ public class DeletePlayer extends JFrame implements ActionListener {
     private void initContent(JPanel content) {
         content.setLayout(new GridLayout(0, 2, 0, 2));
 
-        JLabel player = new JLabel("    Player ID");
+        JLabel team = new JLabel("    Team ID");
         JLabel ws = new JLabel("  ");
         ws.setForeground(Color.white);
 
@@ -47,15 +47,15 @@ public class DeletePlayer extends JFrame implements ActionListener {
         submit.setBackground(new Color(56, 133, 193));
         submit.addActionListener(this);
 
-        playerF = new JTextField();
+        teamF = new JTextField();
 
-        JLabel[] labels = {player};
+        JLabel[] labels = {team};
         for (JLabel l : labels) {
             l.setFont(new Font("Sans serif", Font.PLAIN, 13));
         }
 
-        content.add(player);
-        content.add(playerF);
+        content.add(team);
+        content.add(teamF);
         content.add(ws);
         content.add(submit);
     }
@@ -63,7 +63,7 @@ public class DeletePlayer extends JFrame implements ActionListener {
     private void initHeader(JPanel header) {
         header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
 
-        JLabel pageTitle = new JLabel(" Delete Player");
+        JLabel pageTitle = new JLabel(" Delete Team");
         pageTitle.setFont(new Font("Sans serif", Font.BOLD, 19));
 
         JLabel ws1 = new JLabel("  ");
@@ -83,10 +83,10 @@ public class DeletePlayer extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==submit) {
             try {
-                int playerS = Integer.parseInt(playerF.getText());
-                database.deletePlayer(playerS);
+                int teamS = Integer.parseInt(teamF.getText());
+                database.deleteTeam2(teamS);
                 JOptionPane.showMessageDialog(null,
-                        "Player " + playerS + " was successfully deleted.",
+                        "Team " + teamS + " was successfully deleted.",
                         "Success",
                         JOptionPane.PLAIN_MESSAGE);
             } catch (NumberFormatException exception) {

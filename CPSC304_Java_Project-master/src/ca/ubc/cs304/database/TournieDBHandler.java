@@ -5,10 +5,8 @@ import java.util.ArrayList;
 
 import ca.ubc.cs304.model.*;
 
-import ca.ubc.cs304.ui.DatabaseGUI;
 import ca.ubc.cs304.util.PrintablePreparedStatement;
 
-import java.util.Calendar;
 import java.sql.Date;
 
 public class TournieDBHandler {
@@ -171,15 +169,15 @@ public class TournieDBHandler {
         }
     }
 
-    public void deletePlayer(int pid) throws SQLException{
+    public void deleteTeam2(int tid) throws SQLException{
         try {
-            String query = "DELETE FROM player WHERE id = ?";
+            String query = "DELETE FROM Team2 WHERE ID = ?";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
-            ps.setInt(1, pid);
+            ps.setInt(1, tid);
 
             int rowCount = ps.executeUpdate();
             if (rowCount == 0) {
-                System.out.println(WARNING_TAG + " Player " + pid + " does not exist!");
+                System.out.println(WARNING_TAG + " Team " + tid + " does not exist!");
             }
 
             connection.commit();
@@ -337,7 +335,7 @@ public class TournieDBHandler {
             db.updatePlayerRanking(1, 222222);
             db.updatePlayerJoinDate(1, new Date(System.currentTimeMillis()));
             db.updatePlayerTeamId(1, 102);
-            db.deletePlayer(1);
+            db.deleteTeam2(1);
             ArrayList<String> tables = db.getTables();
             String table = tables.get(0);
             System.out.println(db.getTables());
