@@ -22,3 +22,4 @@ public class Team2 {
     public String getOrganization() {
         return organization;
     }
+}
