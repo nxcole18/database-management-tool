@@ -73,8 +73,8 @@ HAVING winner NOT IN (SELECT ID FROM Teams_with_experienced_coaches);
 
 
 -- division
--- Find all broadcasters that have broadcasted all the tournaments
-SELECT DISTINCT B.ID
+-- Find all broadcasters that have broadcasted all the tournaments, name the ID and organization
+SELECT DISTINCT B.ID, B.Organization
 FROM Broadcaster B 
 WHERE NOT EXISTS (
     SELECT T.Name, T.Start_date
