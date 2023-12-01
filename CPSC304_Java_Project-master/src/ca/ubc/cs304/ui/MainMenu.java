@@ -151,7 +151,7 @@ public class MainMenu extends JFrame implements ActionListener {
         ActionListener viewButton1Listener = e -> new Projection(database);
         viewButton1.addActionListener(viewButton1Listener);
 
-        ActionListener viewButton2Listener = e -> new JoinPlayerTeam(database);
+        ActionListener viewButton2Listener = e -> new JoinTeamTables(database);
         viewButton2.addActionListener(viewButton2Listener);
 
         ActionListener viewButton3Listener = e -> new Aggregation(database);
