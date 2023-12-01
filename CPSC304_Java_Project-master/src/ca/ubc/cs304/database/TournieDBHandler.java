@@ -402,6 +402,47 @@ public class TournieDBHandler {
         }
     }
 
+    public ArrayList<ArrayList<String>> division() throws SQLException {
+        try {
+            String query = "SELECT DISTINCT B.ID, B.Organization " +
+                    "FROM Broadcaster B " +
+                    "WHERE NOT EXISTS (" +
+                    "    SELECT T.Name, T.Start_date " +
+                    "    FROM Tournament T " +
+                    "    WHERE NOT EXISTS (" +
+                    "        SELECT * " +
+                    "        FROM Broadcasts R " +
+                    "        WHERE R.Tournament_name=T.Name AND R.Tournament_start_date=T.Start_date AND R.Broadcaster_ID = B.ID" +
+                    "    )" +
+                    ")";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<ArrayList<String>> res = new ArrayList<>();
+
+            if (rs == null) {
+                System.out.println("null");
+            }
+
+            while (rs.next()) {
+                ArrayList<String> row = new ArrayList<>();
+                for (int i = 1; i < 3; i++) {
+                    row.add(rs.getObject(i).toString());
+                }
+                res.add(row);
+            }
+
+            connection.commit();
+            rs.close();
+            ps.close();
+            return res;
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+            throw e;
+        }
+    }
+
     private void rollbackConnection() {
         try {
             connection.rollback();
@@ -431,14 +472,14 @@ public class TournieDBHandler {
 
         try {
             db.login("ora_ethanz01", "a67073387");
-            db.insertPlayer(new Player(1, "test", "test", "antarctica", new Date(System.currentTimeMillis()), 999, 101));
+//            db.insertPlayer(new Player(1, "test", "test", "antarctica", new Date(System.currentTimeMillis()), 999, 101));
             db.updatePlayerFirstName(1, "testUpdate");
             db.updatePlayerLastName(1, "testUpdate2");
             db.updatePlayerCountry(1, "country?");
             db.updatePlayerRanking(1, 222222);
             db.updatePlayerJoinDate(1, new Date(System.currentTimeMillis()));
             db.updatePlayerTeamId(1, 102);
-            db.deleteTeam2(1);
+//            db.deleteTeam2(1);
             ArrayList<String> tables = db.getTables();
             String table = tables.get(0);
             System.out.println(db.getTables());
@@ -467,6 +508,10 @@ public class TournieDBHandler {
             }
             ArrayList<ArrayList<String>> nested = db.nested();
             for (ArrayList<String> list : nested) {
+                System.out.println(String.join(", ", list));
+            }
+            ArrayList<ArrayList<String>> division = db.division();
+            for (ArrayList<String> list : division) {
                 System.out.println(String.join(", ", list));
             }
         } catch (SQLException e) {
