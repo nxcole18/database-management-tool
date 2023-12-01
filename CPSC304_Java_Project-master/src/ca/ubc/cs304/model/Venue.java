@@ -28,4 +28,3 @@ public class Venue {
     public int getCapacity() {
         return capacity;
     }
-}

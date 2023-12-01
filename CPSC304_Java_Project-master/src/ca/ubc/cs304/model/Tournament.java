@@ -59,4 +59,3 @@ public class Tournament {
     public int getWinning_team() {
         return winning_team;
     }
-}

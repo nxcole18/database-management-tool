@@ -50,10 +50,10 @@ GROUP BY Team_ID;
 -- average ranking of a team
 
 -- having aggregation
-SELECT Venue_name, AVG(Capacity) AS avg_capacity
-FROM Tournament t, Match2 m
-WHERE t.Name = m.Tournament_name AND t.Start_date = m.Tournament_Start_date
-GROUP BY Venue_name
+SELECT v.City, AVG(Capacity) AS avg_capacity
+FROM Tournament t, Venue v
+WHERE t.Venue_name = v.Name AND t.Venue_city = v.City
+GROUP BY v.City
 HAVING COUNT(*) < 2;
 -- might change later to > 5 or something to get bigger venues if we have more entries
 
@@ -73,3 +73,15 @@ HAVING winner NOT IN (SELECT ID FROM Teams_with_experienced_coaches);
 
 
 -- division
+-- Find all broadcasters that have broadcasted all the tournaments, name the ID and organization
+SELECT DISTINCT B.ID, B.Organization
+FROM Broadcaster B 
+WHERE NOT EXISTS (
+    SELECT T.Name, T.Start_date
+    FROM Tournament T 
+    WHERE NOT EXISTS (
+        SELECT *
+        FROM Broadcasts R 
+        WHERE R.Tournament_name=T.Name AND R.Tournament_start_date=T.Start_date AND R.Broadcaster_ID = B.ID
+    )
+);

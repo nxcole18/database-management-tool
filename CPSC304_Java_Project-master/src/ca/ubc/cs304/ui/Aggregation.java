@@ -6,20 +6,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
-public class DeleteTeam extends JFrame implements ActionListener {
-    private JTextField teamF;
+public class Aggregation extends JFrame implements ActionListener {
+    private JComboBox aggQueries;
     private JButton submit;
+
     TournieDBHandler database;
 
-    public DeleteTeam(TournieDBHandler db) {
-        super("Delete Team");
+    public Aggregation(TournieDBHandler db) {
+        super("");
         database = db;
 
         setSize(370, 185);
         setResizable(false);
         setBackground(Color.white);
+
 
         JPanel header = new JPanel();
         initHeader(header);
@@ -36,18 +37,21 @@ public class DeleteTeam extends JFrame implements ActionListener {
     private void initContent(JPanel content) {
         content.setLayout(new GridLayout(0, 2, 0, 2));
 
-        JLabel team = new JLabel("    Team ID");
+        JLabel team = new JLabel("    Options");
         JLabel ws = new JLabel("  ");
         ws.setForeground(Color.white);
 
-        submit = new JButton("Delete");
+        submit = new JButton("Display");
         submit.setFont(new Font("Sans serif", Font.PLAIN, 13));
         submit.setBorderPainted(false);
         submit.setForeground(new Color(219, 229, 237));
         submit.setBackground(new Color(56, 133, 193));
         submit.addActionListener(this);
 
-        teamF = new JTextField();
+        String[] choices = {"GROUP BY", "HAVING", "NESTED GROUP BY"};
+        aggQueries = new JComboBox(choices);
+
+        //guard
 
         JLabel[] labels = {team};
         for (JLabel l : labels) {
@@ -55,7 +59,7 @@ public class DeleteTeam extends JFrame implements ActionListener {
         }
 
         content.add(team);
-        content.add(teamF);
+        content.add(aggQueries);
         content.add(ws);
         content.add(submit);
     }
@@ -63,7 +67,7 @@ public class DeleteTeam extends JFrame implements ActionListener {
     private void initHeader(JPanel header) {
         header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
 
-        JLabel pageTitle = new JLabel(" Delete Team");
+        JLabel pageTitle = new JLabel(" Run Aggregation Queries");
         pageTitle.setFont(new Font("Sans serif", Font.BOLD, 19));
 
         JLabel ws1 = new JLabel("  ");
@@ -82,26 +86,6 @@ public class DeleteTeam extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==submit) {
-            try {
-                int teamS = Integer.parseInt(teamF.getText());
-                database.deleteTeam2(teamS);
-                JOptionPane.showMessageDialog(null,
-                        "Team " + teamS + " was successfully deleted.",
-                        "Success",
-                        JOptionPane.PLAIN_MESSAGE);
-                this.dispose();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null,
-                        "Team does not exist. Try again.",
-                        "Error",
-                        JOptionPane.WARNING_MESSAGE);
-            } catch (NumberFormatException exception) {
-                JOptionPane.showMessageDialog(null,
-                        "Please ensure that you have input a number.",
-                        "Error",
-                        JOptionPane.WARNING_MESSAGE);
-            }
-
         }
     }
 }

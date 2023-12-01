@@ -6,15 +6,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
+import java.awt.event.ItemEvent;
 
-public class DeleteTeam extends JFrame implements ActionListener {
-    private JTextField teamF;
+public class Projection extends JFrame implements ActionListener {
+    private JComboBox tableSelection;
     private JButton submit;
-    TournieDBHandler database;
+    private TournieDBHandler database;
 
-    public DeleteTeam(TournieDBHandler db) {
-        super("Delete Team");
+    public Projection(TournieDBHandler db) {
+        super("");
         database = db;
 
         setSize(370, 185);
@@ -36,26 +36,25 @@ public class DeleteTeam extends JFrame implements ActionListener {
     private void initContent(JPanel content) {
         content.setLayout(new GridLayout(0, 2, 0, 2));
 
-        JLabel team = new JLabel("    Team ID");
-        JLabel ws = new JLabel("  ");
-        ws.setForeground(Color.white);
-
-        submit = new JButton("Delete");
+        submit = new JButton("Show attributes");
         submit.setFont(new Font("Sans serif", Font.PLAIN, 13));
         submit.setBorderPainted(false);
         submit.setForeground(new Color(219, 229, 237));
         submit.setBackground(new Color(56, 133, 193));
         submit.addActionListener(this);
 
-        teamF = new JTextField();
+        JLabel tableOptionLabel = new JLabel("    Select table");
+        tableOptionLabel.setFont(new Font("Sans serif", Font.PLAIN, 13));
+        JLabel ws = new JLabel("  ");
+        ws.setForeground(Color.white);
 
-        JLabel[] labels = {team};
-        for (JLabel l : labels) {
-            l.setFont(new Font("Sans serif", Font.PLAIN, 13));
-        }
+        String[] tableOptions = {"PLAYER", "VENUE", "SPONSOR", "TEAM1", "TEAM2", "TOURNAMENT", "MATCH1", "MATCH2", "COMMENTATOR", "COMMENTATES",
+        "BROADCASTER", "BROADCASTS", "COACH", "BUSINESSMEMBER", "NEW TABLE"};
+        tableSelection = new JComboBox(tableOptions);
+        tableSelection.addActionListener(this);
 
-        content.add(team);
-        content.add(teamF);
+        content.add(tableOptionLabel);
+        content.add(tableSelection);
         content.add(ws);
         content.add(submit);
     }
@@ -63,7 +62,7 @@ public class DeleteTeam extends JFrame implements ActionListener {
     private void initHeader(JPanel header) {
         header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
 
-        JLabel pageTitle = new JLabel(" Delete Team");
+        JLabel pageTitle = new JLabel(" Select Table");
         pageTitle.setFont(new Font("Sans serif", Font.BOLD, 19));
 
         JLabel ws1 = new JLabel("  ");
@@ -82,26 +81,10 @@ public class DeleteTeam extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==submit) {
-            try {
-                int teamS = Integer.parseInt(teamF.getText());
-                database.deleteTeam2(teamS);
-                JOptionPane.showMessageDialog(null,
-                        "Team " + teamS + " was successfully deleted.",
-                        "Success",
-                        JOptionPane.PLAIN_MESSAGE);
-                this.dispose();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null,
-                        "Team does not exist. Try again.",
-                        "Error",
-                        JOptionPane.WARNING_MESSAGE);
-            } catch (NumberFormatException exception) {
-                JOptionPane.showMessageDialog(null,
-                        "Please ensure that you have input a number.",
-                        "Error",
-                        JOptionPane.WARNING_MESSAGE);
-            }
-
+            String table = (String) tableSelection.getSelectedItem();
+            new Projection2(database, table);
+            this.dispose();
         }
     }
+
 }
