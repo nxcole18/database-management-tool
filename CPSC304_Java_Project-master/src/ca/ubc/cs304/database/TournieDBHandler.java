@@ -301,6 +301,72 @@ public class TournieDBHandler {
         }
     }
 
+    public ArrayList<ArrayList<String>> aggGroupBy() throws SQLException{
+        try {
+            String query = "SELECT Team_ID, AVG(ranking) AS Average_Team_Ranking FROM Player GROUP BY Team_ID";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<ArrayList<String>> res = new ArrayList<>();
+
+            if (rs == null){
+                System.out.println("null");
+            }
+
+            while(rs.next()){
+                ArrayList<String> row = new ArrayList<>();
+                for (int i = 1; i < 3; i ++){
+                    row.add(rs.getObject(i).toString());
+                }
+                res.add(row);
+            }
+
+            connection.commit();
+            rs.close();
+            ps.close();
+            return res;
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+            throw e;
+        }
+    }
+
+    public ArrayList<ArrayList<String>> aggGroupByHaving() throws SQLException{
+        try {
+            String query = "SELECT v.City, AVG(Capacity) AS avg_capacity " +
+                    "FROM Tournament t, Venue v " +
+                    "WHERE t.Venue_name = v.Name AND t.Venue_city = v.City " +
+                    "GROUP BY v.City " +
+                    "HAVING COUNT(*) < 2";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<ArrayList<String>> res = new ArrayList<>();
+
+            if (rs == null){
+                System.out.println("null");
+            }
+
+            while(rs.next()){
+                ArrayList<String> row = new ArrayList<>();
+                for (int i = 1; i < 3; i ++){
+                    row.add(rs.getObject(i).toString());
+                }
+                res.add(row);
+            }
+
+            connection.commit();
+            rs.close();
+            ps.close();
+            return res;
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+            throw e;
+        }
+    }
+
     private void rollbackConnection() {
         try  {
             connection.rollback();
@@ -354,6 +420,14 @@ public class TournieDBHandler {
             }
             ArrayList<ArrayList<String>> joined = db.join("Canada");
             for (ArrayList<String> list : joined) {
+                System.out.println(String.join(", ", list));
+            }
+            ArrayList<ArrayList<String>> groupBy = db.aggGroupBy();
+            for (ArrayList<String> list : groupBy) {
+                System.out.println(String.join(", ", list));
+            }
+            ArrayList<ArrayList<String>> having = db.aggGroupByHaving();
+            for (ArrayList<String> list : having) {
                 System.out.println(String.join(", ", list));
             }
         } catch (SQLException e) {
