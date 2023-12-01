@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 public class MainMenu extends JFrame implements ActionListener {
     private static final int WIDTH = 580;
     private static final int HEIGHT = 300;
-    private static final String IMG_FILE = "src\\tourneyCup.png";
+    private static final String IMG_FILE = "tourneyCup.png";
     private JButton insertPlayer, deleteButton, updateButton, viewButton, viewButton1, viewButton2, viewButton3, viewButton4;
     TournieDBHandler database;
 

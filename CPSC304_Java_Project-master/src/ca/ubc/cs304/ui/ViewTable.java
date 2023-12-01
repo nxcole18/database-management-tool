@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class ViewTable extends JFrame {
     TournieDBHandler database;
 
-    public ViewTable(TournieDBHandler db, String source, String table, ArrayList<String> columns) {
+    public ViewTable(TournieDBHandler db, String table, ArrayList<String> columns) {
         super("View Table");
         setSize(500, 500);
         database = db;
