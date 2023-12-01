@@ -165,6 +165,12 @@ INSERT INTO Team2		VALUES (103, 'TeamC', 'OrgC');
 INSERT INTO Team2		VALUES (104, 'TeamD', 'OrgD');
 INSERT INTO Team2		VALUES (105, 'TeamE', 'OrgE');
 
+INSERT INTO Player		VALUES (666, 'Patrick', 'Parker', 'Canada', DATE '2018-02-05', 6, 101);
+INSERT INTO Player		VALUES (777, 'Quinna', 'Quarles', 'USA', DATE '2020-12-31', 2, 102);
+INSERT INTO Player		VALUES (888, 'Rachel', 'Rayon', 'Mexico', DATE '2023-01-01', 8, 103);
+INSERT INTO Player		VALUES (999, 'Sylvia', 'Sin', 'Japan', DATE '2019-07-31', 7, 104); 
+INSERT INTO Player		VALUES (1010, 'Tim', 'Thomas', 'Finland', DATE '2022-10-31', 1, 105);
+
 INSERT INTO Tournament	VALUES ('TournamentA', DATE '2012-04-08', DATE '2012-04-12', 'Progression', 'VenueA', 'Shanghai', 11, 101);
 INSERT INTO Tournament	VALUES ('TournamentB', DATE '2020-12-07', DATE '2020-12-21', 'Elimination', 'VenueB', 'Vancouver', 55, 101);
 INSERT INTO Tournament	VALUES ('TournamentC', DATE '2016-11-03', DATE '2016-11-09', 'Elimination', 'VenueC', 'Helsinki', 22, 102);
@@ -176,14 +182,6 @@ INSERT INTO Match1		VALUES ('Semifinals', 5);
 INSERT INTO Match1		VALUES ('Qualification', 3);
 INSERT INTO Match1		VALUES ('Quarterfinals', 3);
 INSERT INTO Match1		VALUES ('Group', 3);
-
-INSERT INTO Match2		VALUES (1, 'LOL', DATE '2018-11-05', TO_TIMESTAMP('2018-11-05 17:00:00', 'YYYY-MM-DD HH24:MI:SS'), '3-2', 101, 102, 101, 'Finals');
-INSERT INTO Match2		VALUES (2, 'LOL', DATE '2018-11-05', TO_TIMESTAMP('2018-11-05 17:00:00', 'YYYY-MM-DD HH24:MI:SS'), '3-0', 101, 104, 101, 'Semifinals');
-INSERT INTO Match2		VALUES (3, 'LOL', DATE '2018-11-05', TO_TIMESTAMP('2018-11-05 17:00:00', 'YYYY-MM-DD HH24:MI:SS'), '3-1', 102, 103, 102, 'Semifinals');
-INSERT INTO Match2		VALUES (4, 'TournamentA', DATE '2012-04-08', TO_TIMESTAMP('2012-04-08 12:30:00', 'YYYY-MM-DD HH24:MI:SS'), '1-2', 101, 105, 105, 'Qualification');
-INSERT INTO Match2		VALUES (5, 'TournamentB', DATE '2020-12-07', TO_TIMESTAMP('2020-12-07 9:45:00', 'YYYY-MM-DD HH24:MI:SS'), '0-2', 102, 104, 104, 'Quarterfinals');
-INSERT INTO Match2		VALUES (6, 'TournamentB', DATE '2020-12-07', TO_TIMESTAMP('2020-12-07 9:45:00', 'YYYY-MM-DD HH24:MI:SS'), '0-2', 104, 103, 103, 'Quarterfinals');
-INSERT INTO Match2		VALUES (7, 'TournamentA', DATE '2012-04-08', TO_TIMESTAMP('2012-04-08 10:45:00', 'YYYY-MM-DD HH24:MI:SS'), '2-1', 103, 102, 103, 'Quarterfinals');
 
 INSERT INTO Commentator	VALUES (1, 'Amber', 'Abbott', 'USA');
 INSERT INTO Commentator	VALUES (2, 'Bob', 'Brown', 'Canada');
@@ -203,12 +201,6 @@ INSERT INTO Broadcaster	VALUES (303, 'BBC');
 INSERT INTO Broadcaster	VALUES (404, 'CTV');
 INSERT INTO Broadcaster	VALUES (505, 'BTV');
 
-INSERT INTO Broadcasts	VALUES ('TournamentA', DATE '2012-04-08', 101);
-INSERT INTO Broadcasts	VALUES ('TournamentB', DATE '2020-12-07', 202);
-INSERT INTO Broadcasts	VALUES ('TournamentC', DATE '2016-11-03', 303);
-INSERT INTO Broadcasts	VALUES ('LOL', DATE '2018-11-05', 404);
-INSERT INTO Broadcasts	VALUES ('2018 Winter Olympics', DATE '2018-02-09', 505);
-
 INSERT INTO Coach VALUES (1010, 'Frank', 'Freeman', 'France', DATE '2021-10-02', 2, 101);
 INSERT INTO Coach VALUES (1020, 'Gary', 'Green', 'Germany', DATE '2015-02-12', 8, 102);
 INSERT INTO Coach VALUES (1030, 'Helen', 'Hall', 'Hungary', DATE '2018-11-06', 5, 103);
@@ -221,19 +213,10 @@ INSERT INTO BusinessMember	VALUES (333, 'Michelle', 'Miller', 'Morocco', DATE '2
 INSERT INTO BusinessMember	VALUES (444, 'Nelson', 'Nelson', 'New Zealand', DATE '2019-12-31', 'Doctor', 104);
 INSERT INTO BusinessMember	VALUES (555, 'Olivia', 'OBrien', 'Oman', DATE '2017-05-31', 'Manager', 105);
 
-INSERT INTO Player		VALUES (666, 'Patrick', 'Parker', 'Canada', DATE '2018-02-05', 6, 101);
-INSERT INTO Player		VALUES (777, 'Quinna', 'Quarles', 'USA', DATE '2020-12-31', 2, 102);
-INSERT INTO Player		VALUES (888, 'Rachel', 'Rayon', 'Mexico', DATE '2023-01-01', 8, 103);
-INSERT INTO Player		VALUES (999, 'Sylvia', 'Sin', 'Japan', DATE '2019-07-31', 7, 104); 
-INSERT INTO Player		VALUES (1010, 'Tim', 'Thomas', 'Finland', DATE '2022-10-31', 1, 105);
 
 
---new inserts for milestone4
+--new inserts for milestone5
 --based on LOL 2023 eliminiation rounds data
-INSERT INTO Venue VALUES ('Gocheok Sky Dome', 'Seoul', 'South Korea', 16744);
-
-INSERT INTO Tournament VALUES ('2023 LOL Worlds', DATE '2023-11-02', DATE '2023-11-19', 'Elimination', 'Gocheok Sky Dome', 'Seoul', 22, 02);
-
 INSERT INTO Team1 VALUES ('KSV GEN', 'South Korea');
 INSERT INTO Team1 VALUES ('SK Telecom', 'South Korea');
 INSERT INTO Team1 VALUES ('KT Corp', 'South Korea');
@@ -293,6 +276,10 @@ INSERT INTO Player VALUES (83, 'Palafox', 'Palafox', 'USA', DATE '2023-04-06', 8
 INSERT INTO Player VALUES (84, 'FBI', 'Huang', 'Australia', DATE '2023-05-27', 84, 08);
 INSERT INTO Player VALUES (85, 'IgNar', 'Lee', 'South Korea', DATE '2023-05-27', 85, 08);
 
+INSERT INTO Venue VALUES ('Gocheok Sky Dome', 'Seoul', 'South Korea', 16744);
+
+INSERT INTO Tournament VALUES ('2023 LOL Worlds', DATE '2023-11-02', DATE '2023-11-19', 'Elimination', 'Gocheok Sky Dome', 'Seoul', 11, 02);
+
 INSERT INTO Match1 VALUES ('Finals', 5);
 INSERT INTO Match1 VALUES ('Semifinals1', 5);
 INSERT INTO Match1 VALUES ('Semifinals2', 5);
@@ -302,12 +289,12 @@ INSERT INTO Match1 VALUES ('Quarterfinals3', 5);
 INSERT INTO Match1 VALUES ('Quarterfinals4', 5);
 	 
 INSERT INTO Match2 VALUES (101, '2023 LOL Worlds', DATE '2023-11-02', TO_TIMESTAMP('2023-11-02 17:00:00', 'YYYY-MM-DD HH24:MI:SS'), '3-0', 07, 08, 07, 'Quarterfinals1');
-INSERT INTO Match2 VALUES (102, '2023 LOL Worlds', DATE '2023-11-03', TO_TIMESTAMP('2023-11-02 17:00:00', 'YYYY-MM-DD HH24:MI:SS'), '3-2', 01, 05, 05, 'Quarterfinals2');
-INSERT INTO Match2 VALUES (103, '2023 LOL Worlds', DATE '2023-11-04', TO_TIMESTAMP('2023-11-02 17:00:00', 'YYYY-MM-DD HH24:MI:SS'), '3-1', 03, 04, 04, 'Quarterfinals3');
-INSERT INTO Match2 VALUES (104, '2023 LOL Worlds', DATE '2023-11-05', TO_TIMESTAMP('2023-11-02 17:00:00', 'YYYY-MM-DD HH24:MI:SS'), '3-0', 02, 06, 02, 'Quarterfinals4');
-INSERT INTO Match2 VALUES (201, '2023 LOL Worlds', DATE '2023-11-11', TO_TIMESTAMP('2023-11-02 18:00:00', 'YYYY-MM-DD HH24:MI:SS'), '3-2', 07, 05, 07, 'Semifinals1');
-INSERT INTO Match2 VALUES (202, '2023 LOL Worlds', DATE '2023-11-12', TO_TIMESTAMP('2023-11-02 18:00:00', 'YYYY-MM-DD HH24:MI:SS'), '3-1', 02, 04, 02, 'Semifinals1');
-INSERT INTO Match2 VALUES (301, '2023 LOL Worlds', DATE '2023-11-19', TO_TIMESTAMP('2023-11-02 19:00:00', 'YYYY-MM-DD HH24:MI:SS'), '3-0', 02, 07, 02, 'Finals');
+INSERT INTO Match2 VALUES (102, '2023 LOL Worlds', DATE '2023-11-02', TO_TIMESTAMP('2023-11-02 17:00:00', 'YYYY-MM-DD HH24:MI:SS'), '3-2', 01, 05, 05, 'Quarterfinals2');
+INSERT INTO Match2 VALUES (103, '2023 LOL Worlds', DATE '2023-11-02', TO_TIMESTAMP('2023-11-02 17:00:00', 'YYYY-MM-DD HH24:MI:SS'), '3-1', 03, 04, 04, 'Quarterfinals3');
+INSERT INTO Match2 VALUES (104, '2023 LOL Worlds', DATE '2023-11-02', TO_TIMESTAMP('2023-11-02 17:00:00', 'YYYY-MM-DD HH24:MI:SS'), '3-0', 02, 06, 02, 'Quarterfinals4');
+INSERT INTO Match2 VALUES (201, '2023 LOL Worlds', DATE '2023-11-02', TO_TIMESTAMP('2023-11-02 18:00:00', 'YYYY-MM-DD HH24:MI:SS'), '3-2', 07, 05, 07, 'Semifinals1');
+INSERT INTO Match2 VALUES (202, '2023 LOL Worlds', DATE '2023-11-02', TO_TIMESTAMP('2023-11-02 18:00:00', 'YYYY-MM-DD HH24:MI:SS'), '3-1', 02, 04, 02, 'Semifinals1');
+INSERT INTO Match2 VALUES (301, '2023 LOL Worlds', DATE '2023-11-02', TO_TIMESTAMP('2023-11-02 19:00:00', 'YYYY-MM-DD HH24:MI:SS'), '3-0', 02, 07, 02, 'Finals');
 
 
 --Inserts for division
