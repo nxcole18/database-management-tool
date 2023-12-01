@@ -1,17 +1,24 @@
 package ca.ubc.cs304.ui;
 
+import ca.ubc.cs304.database.TournieDBHandler;
+import ca.ubc.cs304.model.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.*;
+import java.sql.Date;
 
 public class AddPlayer extends JFrame implements ActionListener {
     private JTextField playerF, firstF, lastF, countryF, joinF, rankingF, teamF;
     private JButton submit;
+    private Player player;
+    TournieDBHandler database;
 
-    public AddPlayer() {
+    public AddPlayer(TournieDBHandler db) {
         super("Add Player");
+        database = db;
+
         setSize(370, 500);
         setResizable(false);
         setBackground(Color.white);
@@ -47,6 +54,7 @@ public class AddPlayer extends JFrame implements ActionListener {
         submit.setBorderPainted(false);
         submit.setForeground(new Color(219, 229, 237));
         submit.setBackground(new Color(56, 133, 193));
+        submit.addActionListener(this);
 
         playerF = new JTextField();
         firstF = new JTextField();
@@ -103,13 +111,29 @@ public class AddPlayer extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==submit) {
-            int playerS = Integer.parseInt(playerF.getText());
-            String firstS = firstF.getText();
-            String lastS = lastF.getText();
-            String countryS = countryF.getText();
-            LocalDate joinS = LocalDate.parse(joinF.getText()); // not sure if this is allowed
-            int rankingS = Integer.parseInt(rankingF.getText());
-            int teamS = Integer.parseInt(teamF.getText());
+            try {
+                int playerS = Integer.parseInt(playerF.getText());
+                String firstS = firstF.getText();
+                String lastS = lastF.getText();
+                String countryS = countryF.getText();
+                String joinPre = joinF.getText();
+                Date joinS = Date.valueOf(joinPre);
+                int rankingS = Integer.parseInt(rankingF.getText());
+                int teamS = Integer.parseInt(teamF.getText());
+
+                player = new Player(playerS, firstS, lastS, countryS, joinS, rankingS, teamS);
+                database.insertPlayer(player);
+
+                JOptionPane.showMessageDialog(null,
+                        "Player was successfully added.",
+                        "Success",
+                        JOptionPane.PLAIN_MESSAGE);
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null,
+                        "Please ensure that you have valid inputs.",
+                        "Error",
+                        JOptionPane.WARNING_MESSAGE);
+            }
         }
     }
 }

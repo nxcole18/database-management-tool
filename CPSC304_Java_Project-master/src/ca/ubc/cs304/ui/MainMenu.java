@@ -1,18 +1,34 @@
 package ca.ubc.cs304.ui;
 
+import ca.ubc.cs304.database.TournieDBHandler;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class MainMenu extends JFrame implements ActionListener {
     private static final int WIDTH = 580;
     private static final int HEIGHT = 300;
     private static final String IMG_FILE = "src\\tourneyCup.png";
-    private JButton insertPlayer, deleteButton, updateButton, viewButton, viewButton1, viewButton2, viewButton3;
+    private JButton insertPlayer, deleteButton, updateButton, viewButton, viewButton1, viewButton2, viewButton3, viewButton4;
+    TournieDBHandler database;
 
-    public MainMenu() {
+    public MainMenu(TournieDBHandler db) {
         super("Menu");
+        database = db;
+
+        try {
+            //database.login("ora_ethanz01", "a67073387");
+            database.login("ora_nxcolel", "a71679872");
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(null,
+                    "Can't login. Please restart the application.",
+                    "Error",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+
         setSize(WIDTH, HEIGHT);
         setResizable(false);
         setBackground(Color.white);
@@ -47,6 +63,7 @@ public class MainMenu extends JFrame implements ActionListener {
         tab3.add(viewButton1);
         tab3.add(viewButton2);
         tab3.add(viewButton3);
+        tab3.add(viewButton4);
 
         // add image
         JLabel img = new JLabel(new ImageIcon(IMG_FILE)); /// !!! not working
@@ -94,14 +111,15 @@ public class MainMenu extends JFrame implements ActionListener {
 
     private void initButtons() {
         insertPlayer = new JButton("New Player");
-        deleteButton = new JButton("Delete Team");
+        deleteButton = new JButton("Delete Player");
         updateButton = new JButton("Update Player");
-        viewButton = new JButton("Player");
-        viewButton1 = new JButton("Player");
-        viewButton2 = new JButton("Player");
-        viewButton3 = new JButton("Player");
+        viewButton = new JButton("Selection");
+        viewButton1 = new JButton("Projection");
+        viewButton2 = new JButton("Join");
+        viewButton3 = new JButton("Aggregation");
+        viewButton4 = new JButton("Division");
 
-        JButton[] buttonArr = {insertPlayer, deleteButton, updateButton, viewButton, viewButton1, viewButton2, viewButton3};
+        JButton[] buttonArr = {insertPlayer, deleteButton, updateButton, viewButton, viewButton1, viewButton2, viewButton3, viewButton4};
 
         for (JButton b:buttonArr){
             decorateButton(b);
@@ -118,22 +136,32 @@ public class MainMenu extends JFrame implements ActionListener {
     }
 
     private void initButtonListeners() {
-        ActionListener insertButtonListener = e -> new AddPlayer();
+        ActionListener insertButtonListener = e -> new AddPlayer(database);
 
         insertPlayer.addActionListener(insertButtonListener);
 
-        ActionListener deleteButtonListener = e -> new DeleteTeam();
+        ActionListener deleteButtonListener = e -> new DeletePlayer(database);
         deleteButton.addActionListener(deleteButtonListener);
 
-        ActionListener updateButtonListener = e -> new UpdatePlayer();
+        ActionListener updateButtonListener = e -> new UpdatePlayer(database);
         updateButton.addActionListener(updateButtonListener);
 
-        ActionListener viewButtonListener = e -> new ModifyMatch();
+        ActionListener viewButtonListener = e -> new Selection(database);
         viewButton.addActionListener(viewButtonListener);
+
+        ActionListener viewButton1Listener = e -> new Projection(database);
+        viewButton1.addActionListener(viewButton1Listener);
+
+        ActionListener viewButton2Listener = e -> new JoinPlayerTeam(database);
+        viewButton2.addActionListener(viewButton2Listener);
+
+        ActionListener viewButton3Listener = e -> new Aggregation(database);
+        viewButton3.addActionListener(viewButton3Listener);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
 
     }
 }
