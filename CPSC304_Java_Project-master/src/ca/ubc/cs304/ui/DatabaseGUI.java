@@ -1,8 +1,12 @@
 package ca.ubc.cs304.ui;
 
+import ca.ubc.cs304.database.TournieDBHandler;
+
 public class DatabaseGUI {
+    TournieDBHandler db;
     public DatabaseGUI() {
-        new MainMenu();
+        db = new TournieDBHandler();
+        new MainMenu(db);
     }
 
     public static void main(String[] args) {

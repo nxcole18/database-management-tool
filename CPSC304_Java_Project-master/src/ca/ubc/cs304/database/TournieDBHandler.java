@@ -359,5 +359,3 @@ public class TournieDBHandler {
         }
         db.close();
     }
-
-}

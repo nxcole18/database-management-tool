@@ -9,20 +9,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 
-public class AddPlayer extends JFrame implements ActionListener {
+public class Selection extends JFrame implements ActionListener {
     private JTextField playerF, firstF, lastF, countryF, joinF, rankingF, teamF;
     private JButton submit;
+    private JComboBox cond;
     private Player player;
+
     TournieDBHandler database;
 
-    public AddPlayer(TournieDBHandler db) {
-        super("Add Player");
+    public Selection(TournieDBHandler db) {
+        super("");
         database = db;
 
-        setSize(370, 500);
+        setSize(370, 600);
         setResizable(false);
         setBackground(Color.white);
-
 
         JPanel header = new JPanel();
         initHeader(header);
@@ -39,6 +40,7 @@ public class AddPlayer extends JFrame implements ActionListener {
     private void initContent(JPanel content) {
         content.setLayout(new GridLayout(0, 2, 0, 2));
 
+        JLabel condition = new JLabel("    Condition");
         JLabel player = new JLabel("    Player ID");
         JLabel first = new JLabel("    First name");
         JLabel last = new JLabel("    Last name");
@@ -49,13 +51,15 @@ public class AddPlayer extends JFrame implements ActionListener {
         JLabel ws = new JLabel("  ");
         ws.setForeground(Color.white);
 
-        submit = new JButton("Add");
+        submit = new JButton("Display");
         submit.setFont(new Font("Sans serif", Font.PLAIN, 13));
         submit.setBorderPainted(false);
         submit.setForeground(new Color(219, 229, 237));
         submit.setBackground(new Color(56, 133, 193));
         submit.addActionListener(this);
 
+        String[] choices = {"AND", "OR"};
+        cond = new JComboBox(choices);
         playerF = new JTextField();
         firstF = new JTextField();
         lastF = new JTextField();
@@ -66,11 +70,13 @@ public class AddPlayer extends JFrame implements ActionListener {
 
         //guard fields
 
-        JLabel[] labels = {player, first, last, country, join, ranking, team};
+        JLabel[] labels = {condition, player, first, last, country, join, ranking, team};
         for (JLabel l : labels) {
             l.setFont(new Font("Sans serif", Font.PLAIN, 13));
         }
 
+        content.add(condition);
+        content.add(cond);
         content.add(player);
         content.add(playerF);
         content.add(first);
@@ -92,7 +98,7 @@ public class AddPlayer extends JFrame implements ActionListener {
     private void initHeader(JPanel header) {
         header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
 
-        JLabel pageTitle = new JLabel(" Add New Player");
+        JLabel pageTitle = new JLabel(" Select A Certain Player");
         pageTitle.setFont(new Font("Sans serif", Font.BOLD, 19));
 
         JLabel ws1 = new JLabel("  ");
@@ -122,14 +128,9 @@ public class AddPlayer extends JFrame implements ActionListener {
                 int teamS = Integer.parseInt(teamF.getText());
 
                 player = new Player(playerS, firstS, lastS, countryS, joinS, rankingS, teamS);
-                database.insertPlayer(player);
+                // need to account for nulls that are okay
+                // ViewTable()
 
-                JOptionPane.showMessageDialog(null,
-                        "Player was successfully added.",
-                        "Success",
-                        JOptionPane.PLAIN_MESSAGE);
-
-                this.dispose();
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
                         "Please ensure that you have valid inputs.",

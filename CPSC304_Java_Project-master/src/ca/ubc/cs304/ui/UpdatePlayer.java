@@ -1,17 +1,25 @@
 package ca.ubc.cs304.ui;
 
+import ca.ubc.cs304.database.TournieDBHandler;
+import ca.ubc.cs304.model.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+
 
 public class UpdatePlayer extends JFrame implements ActionListener {
-    private JTextField playerF, rankingF;
+    private JTextField playerF, firstF, lastF, countryF, joinF, rankingF, teamF;
     private JButton submit;
+    TournieDBHandler database;
 
-    public UpdatePlayer() {
+    public UpdatePlayer(TournieDBHandler db) {
         super("Update Player");
-        setSize(370, 245);
+        database = db;
+
+        setSize(370, 500);
         setResizable(false);
         setBackground(Color.white);
 
@@ -32,7 +40,12 @@ public class UpdatePlayer extends JFrame implements ActionListener {
         content.setLayout(new GridLayout(0, 2, 0, 2));
 
         JLabel player = new JLabel("    Player ID");
+        JLabel first = new JLabel("    First name");
+        JLabel last = new JLabel("    Last name");
+        JLabel country = new JLabel("    Country");
+        JLabel join = new JLabel("    Join date (YYYY-MM-DD)");
         JLabel ranking = new JLabel("    Ranking");
+        JLabel team = new JLabel("    Team ID");
         JLabel ws = new JLabel("  ");
         ws.setForeground(Color.white);
 
@@ -41,21 +54,37 @@ public class UpdatePlayer extends JFrame implements ActionListener {
         submit.setBorderPainted(false);
         submit.setForeground(new Color(219, 229, 237));
         submit.setBackground(new Color(56, 133, 193));
+        submit.addActionListener(this);
 
         playerF = new JTextField();
+        firstF = new JTextField();
+        lastF = new JTextField();
+        countryF = new JTextField();
+        joinF = new JTextField();
         rankingF = new JTextField();
+        teamF = new JTextField();
 
         //guard fields
 
-        JLabel[] labels = {player, ranking};
+        JLabel[] labels = {player, first, last, country, join, ranking, team};
         for (JLabel l : labels) {
             l.setFont(new Font("Sans serif", Font.PLAIN, 13));
         }
 
         content.add(player);
         content.add(playerF);
+        content.add(first);
+        content.add(firstF);
+        content.add(last);
+        content.add(lastF);
+        content.add(country);
+        content.add(countryF);
+        content.add(join);
+        content.add(joinF);
         content.add(ranking);
         content.add(rankingF);
+        content.add(team);
+        content.add(teamF);
         content.add(ws);
         content.add(submit);
     }
@@ -82,8 +111,60 @@ public class UpdatePlayer extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==submit) {
-            int playerS = Integer.parseInt(playerF.getText());
-            int rankingS = Integer.parseInt(rankingF.getText());
+            try {
+                assert playerF.getText() != null;
+                int playerS = Integer.parseInt(playerF.getText());
+
+                if (playerF.getText() == null) {
+                    JOptionPane.showMessageDialog(null,
+                            "Please enter a Player ID.",
+                            "Error",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+
+                if (firstF.getText() != null && !(firstF.getText().isEmpty())) {
+                    String firstS = firstF.getText();
+                    database.updatePlayerFirstName(playerS, firstS);
+                }
+
+                if (lastF.getText() != null && !(lastF.getText().isEmpty())) {
+                    String lastS = lastF.getText();
+                    database.updatePlayerLastName(playerS, lastS);
+                }
+
+                if (countryF.getText() != null && !(countryF.getText().isEmpty())) {
+                    String countryS = countryF.getText();
+                    database.updatePlayerCountry(playerS, countryS);
+                }
+
+                if (joinF.getText() != null && !(joinF.getText().isEmpty())) {
+                    String joinPre = joinF.getText();
+                    Date joinS = Date.valueOf(joinPre);
+                    database.updatePlayerJoinDate(playerS, joinS);
+                }
+
+                if (rankingF.getText() != null && !(rankingF.getText().isEmpty())) {
+                    int rankingS = Integer.parseInt(rankingF.getText());
+                    database.updatePlayerRanking(playerS, rankingS);
+                }
+
+                if (teamF.getText() != null && !(teamF.getText().isEmpty())) {
+                    int teamS = Integer.parseInt(teamF.getText());
+                    database.updatePlayerTeamId(playerS, teamS);
+                }
+
+                JOptionPane.showMessageDialog(null,
+                        "Player was successfully updated.",
+                        "Success",
+                        JOptionPane.PLAIN_MESSAGE);
+
+                this.dispose();
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null,
+                        "Please ensure that you have valid inputs.",
+                        "Error",
+                        JOptionPane.WARNING_MESSAGE);
+            }
         }
     }
 }

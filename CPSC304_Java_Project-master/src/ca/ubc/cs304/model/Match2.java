@@ -57,4 +57,3 @@ public class Match2 {
     public String getStage() {
         return stage;
     }
-}
