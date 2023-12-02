@@ -576,7 +576,10 @@ public class TournieDBHandler {
 //            cs.add("NAME");
 //            cs.add("CAPACITY");
 //            cs.add("COUNTRY");
-            ArrayList<ArrayList<String>> results = db.project(table, columns);
+            ArrayList<String> t_cols = new ArrayList<>();
+            t_cols.add("Name");
+            t_cols.add("Format");
+            ArrayList<ArrayList<String>> results = db.project("Tournament", t_cols);
 
             for (ArrayList<String> list : results) {
                 System.out.println(String.join(", ", list));

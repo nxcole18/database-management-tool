@@ -34,9 +34,10 @@ public class ViewTable2 extends JFrame {
 
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(null,
-                    "Error displaying table.",
+                    exception.getMessage(),
                     "Error",
                     JOptionPane.WARNING_MESSAGE);
+            this.dispose();
         }
 
         setVisible(true);

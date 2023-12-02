@@ -28,14 +28,15 @@ public class ViewTable extends JFrame {
 
             JTable resultsTable = new JTable(model);
 
-            add(new JScrollPane(resultsTable)); // ???
+            add(new JScrollPane(resultsTable));
             add(resultsTable);
 
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(null,
-                    "Error projecting table.",
+                    exception.getMessage(),
                     "Error",
                     JOptionPane.WARNING_MESSAGE);
+            this.dispose();
         }
 
         setVisible(true);
