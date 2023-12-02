@@ -2,7 +2,7 @@
 
 -- insert
 INSERT INTO Player
-VALUES (998, 'Jack', 'Zhen', 'Canada', DATE '2023-09-05', 10300, 101);
+VALUES (10, 'Nicole', 'Cheese', 'Canada', DATE '2002-02-02', 10, 1);
 
 -- Should trigger error because team doesn't exist. Should be able to handle that
 VALUES (998, 'Nave', 'Ecatz', 'Canada', DATE '2023-04-05', 10400, 109);
@@ -12,8 +12,8 @@ VALUES (998, 'Nave', 'Ecatz', 'Canada', DATE '2023-04-05', 10400, 109);
 
 -- update
 UPDATE Player
-SET ranking = 10020
-WHERE ID = 998;
+SET Last_name = 'Cake'
+WHERE ID = 10;
 -- can set any column you want
 
 -- use set of functions: updatePlayerId, updatePlayerFirstName etc.
