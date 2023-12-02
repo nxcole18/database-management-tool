@@ -5,7 +5,6 @@ INSERT INTO Player
 VALUES (998, 'Jack', 'Zhen', 'Canada', DATE '2023-09-05', 10300, 101);
 
 -- Should trigger error because team doesn't exist. Should be able to handle that
-INSERT INTO Player
 VALUES (998, 'Nave', 'Ecatz', 'Canada', DATE '2023-04-05', 10400, 109);
 
 -- use function: insertPlayer
@@ -75,13 +74,13 @@ HAVING winner NOT IN (SELECT ID FROM Teams_with_experienced_coaches);
 -- division
 -- Find all broadcasters that have broadcasted all the tournaments, name the ID and organization
 SELECT DISTINCT B.ID, B.Organization
-FROM Broadcaster B
+FROM Broadcaster B 
 WHERE NOT EXISTS (
-        SELECT T.Name, T.Start_date
-        FROM Tournament T
-        WHERE NOT EXISTS (
-                SELECT *
-                FROM Broadcasts R
-                WHERE R.Tournament_name=T.Name AND R.Tournament_start_date=T.Start_date AND R.Broadcaster_ID = B.ID
-            )
-    );
+    SELECT T.Name, T.Start_date
+    FROM Tournament T 
+    WHERE NOT EXISTS (
+        SELECT *
+        FROM Broadcasts R 
+        WHERE R.Tournament_name=T.Name AND R.Tournament_start_date=T.Start_date AND R.Broadcaster_ID = B.ID
+    )
+);

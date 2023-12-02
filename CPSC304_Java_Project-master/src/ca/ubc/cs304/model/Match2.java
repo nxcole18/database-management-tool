@@ -22,6 +22,7 @@ public class Match2 {
         this.winner = winner;
         this.stage = stage;
     }
+
     public int getMatch_number() {
         return match_number;
     }

@@ -15,13 +15,13 @@ public class Player {
 
     private final int team_id;
 
-    public Player (int id,
-                   String first_name,
-                   String last_name,
-                   String country,
-                   Date join_date,
-                   int ranking,
-                   int team_id) {
+    public Player(int id,
+                  String first_name,
+                  String last_name,
+                  String country,
+                  Date join_date,
+                  int ranking,
+                  int team_id) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
