@@ -66,7 +66,7 @@ public class JoinTeamTables extends JFrame implements ActionListener {
     private void initHeader(JPanel header) {
         header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
 
-        JLabel pageTitle = new JLabel(" Join Team Tables by Country");
+        JLabel pageTitle = new JLabel(" Join Team Tables by Organization");
         pageTitle.setFont(new Font("Sans serif", Font.BOLD, 19));
 
         JLabel ws1 = new JLabel("  ");
@@ -100,6 +100,12 @@ public class JoinTeamTables extends JFrame implements ActionListener {
                             JOptionPane.WARNING_MESSAGE);
                     this.dispose();
                 }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,
+                        ex.getMessage(),
+                        "Error",
+                        JOptionPane.WARNING_MESSAGE);
+                this.dispose();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,
                         "Please ensure you have valid inputs.",

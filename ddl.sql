@@ -14,21 +14,21 @@ drop table TOURNAMENT cascade constraints;
 drop table VENUE cascade constraints;
 
 CREATE TABLE Venue(
-	Name VARCHAR(50),
-	City VARCHAR(50), 
-	Country VARCHAR(50) NOT NULL,
-	Capacity INT,
-	PRIMARY KEY (Name, City)
+                      Name VARCHAR(50),
+                      City VARCHAR(50),
+                      Country VARCHAR(50) NOT NULL,
+                      Capacity INT,
+                      PRIMARY KEY (Name, City)
 );
 
 CREATE TABLE Sponsor(
-	ID INT PRIMARY KEY,
-	Name VARCHAR(50) NOT NULL
+                        ID INT PRIMARY KEY,
+                        Name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Team1(
-	Organization VARCHAR(50) PRIMARY KEY,
-	Country VARCHAR(50) NOT NULL
+                      Organization VARCHAR(50) PRIMARY KEY,
+                      Country VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Team2(
@@ -64,11 +64,12 @@ CREATE TABLE Tournament(
 ); 
 
 CREATE TABLE Match1(
-	Stage VARCHAR(50) PRIMARY KEY,
-	Rounds INT NOT NULL
+                       Stage VARCHAR(50) PRIMARY KEY,
+                       Rounds INT NOT NULL
 );
 
 CREATE TABLE Match2(
+
 	Match_number INT,
 	Tournament_name VARCHAR(50) NOT NULL,
 	Tournament_start_date DATE NOT NULL,
@@ -95,13 +96,14 @@ CREATE TABLE Match2(
 );
 
 CREATE TABLE Commentator(
-	ID INT PRIMARY KEY,
-	First_name VARCHAR(50) NOT NULL,
-	Last_name VARCHAR(50) NOT NULL,
-	Country VARCHAR(50)
+                            ID INT PRIMARY KEY,
+                            First_name VARCHAR(50) NOT NULL,
+                            Last_name VARCHAR(50) NOT NULL,
+                            Country VARCHAR(50)
 );
 
 CREATE TABLE Commentates(
+
 	Tournament_name VARCHAR(50),
 	Tournament_start_date DATE,
 	FOREIGN KEY (Tournament_name, Tournament_start_date) REFERENCES Tournament(Name, Start_date)
@@ -115,11 +117,12 @@ CREATE TABLE Commentates(
 );
 
 CREATE TABLE Broadcaster(
-	ID INT PRIMARY KEY,
-	Organization VARCHAR(50) NOT NULL
+                            ID INT PRIMARY KEY,
+                            Organization VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Broadcasts(
+
 	Tournament_name VARCHAR(50),
 	Tournament_start_date DATE,
 	FOREIGN KEY (Tournament_name, Tournament_start_date) REFERENCES Tournament(Name, Start_date) 
@@ -146,6 +149,7 @@ ID INT PRIMARY KEY,
 );
 
 CREATE TABLE BusinessMember(
+
 	ID INT PRIMARY KEY,
 	First_name VARCHAR(50) NOT NULL,
 	Last_name VARCHAR(50) NOT NULL,
@@ -159,6 +163,7 @@ CREATE TABLE BusinessMember(
 );
 
 CREATE TABLE Player(
+
 	ID INT PRIMARY KEY,
 	First_name VARCHAR(50) NOT NULL,
 	Last_name VARCHAR(50) NOT NULL,
@@ -199,7 +204,7 @@ INSERT INTO Team2		VALUES (105, 'TeamE', 'OrgE');
 INSERT INTO Player		VALUES (666, 'Patrick', 'Parker', 'Canada', DATE '2018-02-05', 6, 101);
 INSERT INTO Player		VALUES (777, 'Quinna', 'Quarles', 'USA', DATE '2020-12-31', 2, 102);
 INSERT INTO Player		VALUES (888, 'Rachel', 'Rayon', 'Mexico', DATE '2023-01-01', 8, 103);
-INSERT INTO Player		VALUES (999, 'Sylvia', 'Sin', 'Japan', DATE '2019-07-31', 7, 104); 
+INSERT INTO Player		VALUES (999, 'Sylvia', 'Sin', 'Japan', DATE '2019-07-31', 7, 104);
 INSERT INTO Player		VALUES (1010, 'Tim', 'Thomas', 'Finland', DATE '2022-10-31', 1, 105);
 
 INSERT INTO Tournament	VALUES ('TournamentA', DATE '2012-04-08', DATE '2012-04-12', 'Progression', 'VenueA', 'Shanghai', 11, 101);
@@ -268,7 +273,7 @@ INSERT INTO Team2 VALUES (08, 'NRG', 'NR');
 
 INSERT INTO Player VALUES (11, 'Doran', 'Choi', 'South Korea', DATE '2022-01-01', 11, 01);
 INSERT INTO Player VALUES (12, 'Peanut', 'Han', 'South Korea', DATE '2022-01-01', 12, 01);
-INSERT INTO Player VALUES (13, 'Chovy', 'Jeong', 'South Korea', DATE '2022-01-01', 13, 01); 
+INSERT INTO Player VALUES (13, 'Chovy', 'Jeong', 'South Korea', DATE '2022-01-01', 13, 01);
 INSERT INTO Player VALUES (14, 'Peyz', 'Kim', 'South Korea', DATE '2023-01-01', 14, 01);
 INSERT INTO Player VALUES (15, 'Delight', 'Yoo', 'South Korea', DATE '2023-01-01', 15, 01);
 INSERT INTO Player VALUES (21, 'Zeus', 'Choi', 'South Korea', DATE '2020-11-05', 21, 02);
@@ -315,10 +320,10 @@ INSERT INTO Match1 VALUES ('Finals', 5);
 INSERT INTO Match1 VALUES ('Semifinals1', 5);
 INSERT INTO Match1 VALUES ('Semifinals2', 5);
 INSERT INTO Match1 VALUES ('Quarterfinals1', 5);
-INSERT INTO Match1 VALUES ('Quarterfinals2', 5);	
+INSERT INTO Match1 VALUES ('Quarterfinals2', 5);
 INSERT INTO Match1 VALUES ('Quarterfinals3', 5);
 INSERT INTO Match1 VALUES ('Quarterfinals4', 5);
-	 
+
 INSERT INTO Match2 VALUES (101, '2023 LOL Worlds', DATE '2023-11-02', TO_TIMESTAMP('2023-11-02 17:00:00', 'YYYY-MM-DD HH24:MI:SS'), '3-0', 07, 08, 07, 'Quarterfinals1');
 INSERT INTO Match2 VALUES (102, '2023 LOL Worlds', DATE '2023-11-02', TO_TIMESTAMP('2023-11-02 17:00:00', 'YYYY-MM-DD HH24:MI:SS'), '3-2', 01, 05, 05, 'Quarterfinals2');
 INSERT INTO Match2 VALUES (103, '2023 LOL Worlds', DATE '2023-11-02', TO_TIMESTAMP('2023-11-02 17:00:00', 'YYYY-MM-DD HH24:MI:SS'), '3-1', 03, 04, 04, 'Quarterfinals3');

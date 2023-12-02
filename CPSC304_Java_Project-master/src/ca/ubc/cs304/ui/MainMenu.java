@@ -170,7 +170,7 @@ public class MainMenu extends JFrame implements ActionListener {
             return database.division();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null,
-                    "Error with division query.",
+                    e.getMessage(),
                     "Error",
                     JOptionPane.WARNING_MESSAGE);
         }

@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.sql.SQLException;
 
 
 public class UpdatePlayer extends JFrame implements ActionListener {
@@ -112,15 +113,11 @@ public class UpdatePlayer extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==submit) {
             try {
-                assert playerF.getText() != null;
-                int playerS = Integer.parseInt(playerF.getText());
-
-                if (playerF.getText() == null) {
-                    JOptionPane.showMessageDialog(null,
-                            "Please enter a Player ID.",
-                            "Error",
-                            JOptionPane.WARNING_MESSAGE);
+                if (playerF.getText() == null || playerF.getText().isEmpty()) {
+                    throw new NullPointerException();
                 }
+
+                int playerS = Integer.parseInt(playerF.getText());
 
                 if (firstF.getText() != null && !(firstF.getText().isEmpty())) {
                     String firstS = firstF.getText();
@@ -159,11 +156,24 @@ public class UpdatePlayer extends JFrame implements ActionListener {
                         JOptionPane.PLAIN_MESSAGE);
 
                 this.dispose();
+            } catch (SQLException exception) {
+                JOptionPane.showMessageDialog(null,
+                        exception.getMessage(),
+                        "Error",
+                        JOptionPane.WARNING_MESSAGE);
+                this.dispose();
+            } catch (NullPointerException exception) {
+                JOptionPane.showMessageDialog(null,
+                        "Please enter a Player ID.",
+                        "Error",
+                        JOptionPane.WARNING_MESSAGE);
+                this.dispose();
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
                         "Please ensure that you have valid inputs.",
                         "Error",
                         JOptionPane.WARNING_MESSAGE);
+                this.dispose();
             }
         }
     }

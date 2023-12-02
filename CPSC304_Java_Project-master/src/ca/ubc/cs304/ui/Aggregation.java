@@ -96,9 +96,10 @@ public class Aggregation extends JFrame implements ActionListener {
                     this.dispose();
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null,
-                            "Error producing query.",
+                            ex.getMessage(),
                             "Error",
                             JOptionPane.WARNING_MESSAGE);
+                    this.dispose();
                 }
             } else if (Objects.equals(selectedQuery, "HAVING")) {
                 try {
@@ -107,9 +108,10 @@ public class Aggregation extends JFrame implements ActionListener {
                     this.dispose();
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null,
-                            "Error producing query.",
+                            ex.getMessage(),
                             "Error",
                             JOptionPane.WARNING_MESSAGE);
+                    this.dispose();
                 }
                 // new ViewTable(database, table, columns);
             } else if (Objects.equals(selectedQuery, "NESTED GROUP BY")) {
@@ -119,9 +121,10 @@ public class Aggregation extends JFrame implements ActionListener {
                     this.dispose();
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null,
-                            "Error producing query.",
+                            ex.getMessage(),
                             "Error",
                             JOptionPane.WARNING_MESSAGE);
+                    this.dispose();
                 }
             }
         }

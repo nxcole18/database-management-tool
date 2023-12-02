@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.sql.SQLException;
 
 public class AddPlayer extends JFrame implements ActionListener {
     private JTextField playerF, firstF, lastF, countryF, joinF, rankingF, teamF;
@@ -130,11 +131,18 @@ public class AddPlayer extends JFrame implements ActionListener {
                         JOptionPane.PLAIN_MESSAGE);
 
                 this.dispose();
-            } catch (Exception exception) {
+            } catch (SQLException exception) {
                 JOptionPane.showMessageDialog(null,
-                        "Please ensure that you have valid inputs.",
+                        exception.getMessage(),
                         "Error",
                         JOptionPane.WARNING_MESSAGE);
+                this.dispose();
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null,
+                        "Please ensure that you have valid inputs for each field.",
+                        "Error",
+                        JOptionPane.WARNING_MESSAGE);
+                this.dispose();
             }
         }
     }

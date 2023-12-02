@@ -95,11 +95,13 @@ public class DeleteTeam extends JFrame implements ActionListener {
                         "Team does not exist. Try again.",
                         "Error",
                         JOptionPane.WARNING_MESSAGE);
+                this.dispose();
             } catch (NumberFormatException exception) {
                 JOptionPane.showMessageDialog(null,
                         "Please ensure that you have input a number.",
                         "Error",
                         JOptionPane.WARNING_MESSAGE);
+                this.dispose();
             }
 
         }
