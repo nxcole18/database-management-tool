@@ -39,7 +39,7 @@ public class TournieDBHandler {
         }
     }
 
-    public void insertPlayer(Player player) throws SQLException{
+    public void insertPlayer(Player player) throws SQLException {
         try {
             String query = "INSERT INTO Player VALUES (?,?,?,?,?,?,?)";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
@@ -62,7 +62,7 @@ public class TournieDBHandler {
         }
     }
 
-    public void updatePlayerLastName(int pid, String lastName) throws SQLException{
+    public void updatePlayerLastName(int pid, String lastName) throws SQLException {
         try {
             String query = "UPDATE Player SET Last_name = ? WHERE ID = ?";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
@@ -80,7 +80,7 @@ public class TournieDBHandler {
         }
     }
 
-    public void updatePlayerCountry(int pid, String country) throws SQLException{
+    public void updatePlayerCountry(int pid, String country) throws SQLException {
         try {
             String query = "UPDATE Player SET Country = ? WHERE ID = ?";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
@@ -98,7 +98,7 @@ public class TournieDBHandler {
         }
     }
 
-    public void updatePlayerJoinDate(int pid, Date joinDate) throws SQLException{
+    public void updatePlayerJoinDate(int pid, Date joinDate) throws SQLException {
         try {
             String query = "UPDATE Player SET Join_date = ? WHERE ID = ?";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
@@ -116,7 +116,7 @@ public class TournieDBHandler {
         }
     }
 
-    public void updatePlayerRanking(int pid, int ranking) throws SQLException{
+    public void updatePlayerRanking(int pid, int ranking) throws SQLException {
         try {
             String query = "UPDATE Player SET Ranking = ? WHERE ID = ?";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
@@ -134,7 +134,7 @@ public class TournieDBHandler {
         }
     }
 
-    public void updatePlayerTeamId(int pid, int teamId) throws SQLException{
+    public void updatePlayerTeamId(int pid, int teamId) throws SQLException {
         try {
             String query = "UPDATE Player SET Team_ID = ? WHERE ID = ?";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
@@ -151,7 +151,8 @@ public class TournieDBHandler {
             throw e;
         }
     }
-    public void updatePlayerFirstName(int pid, String firstName) throws SQLException{
+
+    public void updatePlayerFirstName(int pid, String firstName) throws SQLException {
         try {
             String query = "UPDATE Player SET First_name = ? WHERE ID = ?";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
@@ -169,7 +170,7 @@ public class TournieDBHandler {
         }
     }
 
-    public void deleteTeam2(int tid) throws SQLException{
+    public void deleteTeam2(int tid) throws SQLException {
         try {
             String query = "DELETE FROM Team2 WHERE ID = ?";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
@@ -190,7 +191,7 @@ public class TournieDBHandler {
         }
     }
 
-    public ArrayList<String> getTables() throws SQLException{
+    public ArrayList<String> getTables() throws SQLException {
         try {
             String query = "SELECT table_name FROM user_tables";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
@@ -199,7 +200,7 @@ public class TournieDBHandler {
 
             ArrayList<String> table_names = new ArrayList<>();
 
-            while(rs.next()){
+            while (rs.next()) {
                 table_names.add(rs.getString("table_name"));
             }
 
@@ -214,7 +215,7 @@ public class TournieDBHandler {
         }
     }
 
-    public ArrayList<String> getTableColumns(String table) throws SQLException{
+    public ArrayList<String> getTableColumns(String table) throws SQLException {
         try {
             String query = "SELECT column_name FROM USER_TAB_COLUMNS WHERE table_name = ?";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
@@ -223,7 +224,7 @@ public class TournieDBHandler {
 
             ArrayList<String> res = new ArrayList<>();
 
-            while(rs.next()){
+            while (rs.next()) {
                 res.add(rs.getString("column_name"));
             }
 
@@ -238,19 +239,19 @@ public class TournieDBHandler {
         }
     }
 
-    public ArrayList<ArrayList<String>> project(String table, ArrayList<String> columns) throws SQLException{
+    public ArrayList<ArrayList<String>> project(String table, ArrayList<String> columns) throws SQLException {
         try {
             String join_cols = String.join(", ", columns);
-            String query = "SELECT " + join_cols +  " FROM " + table;
+            String query = "SELECT " + join_cols + " FROM " + table;
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
 
             ResultSet rs = ps.executeQuery();
 
             ArrayList<ArrayList<String>> res = new ArrayList<>();
 
-            while(rs.next()){
+            while (rs.next()) {
                 ArrayList<String> row = new ArrayList<>();
-                for (int i = 1; i < columns.size() + 1; i ++){
+                for (int i = 1; i < columns.size() + 1; i++) {
                     row.add(rs.getObject(i).toString());
                 }
                 res.add(row);
@@ -267,7 +268,7 @@ public class TournieDBHandler {
         }
     }
 
-    public ArrayList<ArrayList<String>> join(String country) throws SQLException{
+    public ArrayList<ArrayList<String>> join(String country) throws SQLException {
         try {
             String query = "SELECT Name, t1.Organization FROM Team1 t1, Team2 t2 WHERE t1.Organization = t2.Organization AND t1.country = ?";
             PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
@@ -276,13 +277,160 @@ public class TournieDBHandler {
 
             ArrayList<ArrayList<String>> res = new ArrayList<>();
 
-            if (rs == null){
+            if (rs == null) {
                 System.out.println("null");
             }
 
-            while(rs.next()){
+            while (rs.next()) {
                 ArrayList<String> row = new ArrayList<>();
-                for (int i = 1; i < 3; i ++){
+                for (int i = 1; i < 3; i++) {
+                    row.add(rs.getObject(i).toString());
+                }
+                res.add(row);
+            }
+
+            connection.commit();
+            rs.close();
+            ps.close();
+            return res;
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+            throw e;
+        }
+    }
+
+    public ArrayList<ArrayList<String>> aggGroupBy() throws SQLException {
+        try {
+            String query = "SELECT Team_ID, AVG(ranking) AS Average_Team_Ranking FROM Player GROUP BY Team_ID";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<ArrayList<String>> res = new ArrayList<>();
+
+            if (rs == null) {
+                System.out.println("null");
+            }
+
+            while (rs.next()) {
+                ArrayList<String> row = new ArrayList<>();
+                for (int i = 1; i < 3; i++) {
+                    row.add(rs.getObject(i).toString());
+                }
+                res.add(row);
+            }
+
+            connection.commit();
+            rs.close();
+            ps.close();
+            return res;
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+            throw e;
+        }
+    }
+
+    public ArrayList<ArrayList<String>> aggGroupByHaving() throws SQLException {
+        try {
+            String query = "SELECT v.City, AVG(Capacity) AS avg_capacity " +
+                    "FROM Tournament t, Venue v " +
+                    "WHERE t.Venue_name = v.Name AND t.Venue_city = v.City " +
+                    "GROUP BY v.City " +
+                    "HAVING COUNT(*) < 2";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<ArrayList<String>> res = new ArrayList<>();
+            ArrayList<String> cols = new ArrayList<>();
+            cols.add("Team_Id");
+            cols.add("Average_Team_Ranking");
+            res.add(cols);
+
+            if (rs == null) {
+                System.out.println("null");
+            }
+
+            while (rs.next()) {
+                ArrayList<String> row = new ArrayList<>();
+                for (int i = 1; i < 3; i++) {
+                    row.add(rs.getObject(i).toString());
+                }
+                res.add(row);
+            }
+
+            connection.commit();
+            rs.close();
+            ps.close();
+            return res;
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+            throw e;
+        }
+    }
+
+    public ArrayList<ArrayList<String>> nested() throws SQLException {
+        try {
+            String query = "SELECT Winner, COUNT(*) AS matches_won " +
+                    "FROM Match2 " +
+                    "GROUP BY winner " +
+                    "HAVING winner NOT IN (SELECT t.ID " +
+                    "                      FROM Team2 t, Coach c " +
+                    "                      WHERE t.ID = c.Team_ID AND c.Years_experience > 5)";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<ArrayList<String>> res = new ArrayList<>();
+
+            if (rs == null) {
+                System.out.println("null");
+            }
+
+            while (rs.next()) {
+                ArrayList<String> row = new ArrayList<>();
+                for (int i = 1; i < 3; i++) {
+                    row.add(rs.getObject(i).toString());
+                }
+                res.add(row);
+            }
+
+            connection.commit();
+            rs.close();
+            ps.close();
+            return res;
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+            throw e;
+        }
+    }
+
+    public ArrayList<ArrayList<String>> division() throws SQLException {
+        try {
+            String query = "SELECT DISTINCT B.ID, B.Organization " +
+                    "FROM Broadcaster B " +
+                    "WHERE NOT EXISTS (" +
+                    "    SELECT T.Name, T.Start_date " +
+                    "    FROM Tournament T " +
+                    "    WHERE NOT EXISTS (" +
+                    "        SELECT * " +
+                    "        FROM Broadcasts R " +
+                    "        WHERE R.Tournament_name=T.Name AND R.Tournament_start_date=T.Start_date AND R.Broadcaster_ID = B.ID" +
+                    "    )" +
+                    ")";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<ArrayList<String>> res = new ArrayList<>();
+
+            if (rs == null) {
+                System.out.println("null");
+            }
+
+            while (rs.next()) {
+                ArrayList<String> row = new ArrayList<>();
+                for (int i = 1; i < 3; i++) {
                     row.add(rs.getObject(i).toString());
                 }
                 res.add(row);
@@ -300,14 +448,14 @@ public class TournieDBHandler {
     }
 
     private void rollbackConnection() {
-        try  {
+        try {
             connection.rollback();
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
     }
 
-    public void login(String username, String password) throws SQLException{
+    public void login(String username, String password) throws SQLException {
         try {
             if (connection != null) {
                 connection.close();
@@ -324,18 +472,18 @@ public class TournieDBHandler {
     }
 
     public static void main(String[] args) {
-        TournieDBHandler db =  new TournieDBHandler();
+        TournieDBHandler db = new TournieDBHandler();
 
         try {
             db.login("ora_ethanz01", "a67073387");
-            db.insertPlayer(new Player(1, "test", "test", "antarctica", new Date(System.currentTimeMillis()), 999, 101));
+//            db.insertPlayer(new Player(1, "test", "test", "antarctica", new Date(System.currentTimeMillis()), 999, 101));
             db.updatePlayerFirstName(1, "testUpdate");
             db.updatePlayerLastName(1, "testUpdate2");
             db.updatePlayerCountry(1, "country?");
             db.updatePlayerRanking(1, 222222);
             db.updatePlayerJoinDate(1, new Date(System.currentTimeMillis()));
             db.updatePlayerTeamId(1, 102);
-            db.deleteTeam2(1);
+//            db.deleteTeam2(1);
             ArrayList<String> tables = db.getTables();
             String table = tables.get(0);
             System.out.println(db.getTables());
@@ -354,10 +502,25 @@ public class TournieDBHandler {
             for (ArrayList<String> list : joined) {
                 System.out.println(String.join(", ", list));
             }
+            ArrayList<ArrayList<String>> groupBy = db.aggGroupBy();
+            for (ArrayList<String> list : groupBy) {
+                System.out.println(String.join(", ", list));
+            }
+            ArrayList<ArrayList<String>> having = db.aggGroupByHaving();
+            for (ArrayList<String> list : having) {
+                System.out.println(String.join(", ", list));
+            }
+            ArrayList<ArrayList<String>> nested = db.nested();
+            for (ArrayList<String> list : nested) {
+                System.out.println(String.join(", ", list));
+            }
+            ArrayList<ArrayList<String>> division = db.division();
+            for (ArrayList<String> list : division) {
+                System.out.println(String.join(", ", list));
+            }
         } catch (SQLException e) {
             System.out.println("sql exception :)");
         }
         db.close();
     }
-
 }

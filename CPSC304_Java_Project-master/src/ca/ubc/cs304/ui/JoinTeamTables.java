@@ -85,7 +85,8 @@ public class JoinTeamTables extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==submit) {
             try {
-                if (countryF.getText() != null && !(countryF.getText().isEmpty()) && !((countryF.getText()).matches("[0-9]+"))) {
+                String sqlInjection = "\\b(SELECT|FROM|WHERE|HAVING|GROUP|INSERT|UPDATE|DELETE|AND|OR|DROP|ALTER|CREATE|UNION|JOIN)\\b";
+                if (countryF.getText() != null && !(countryF.getText().isEmpty()) && !(countryF.getText().matches("[0-9]+")) && !(countryF.getText().matches(sqlInjection))) {
                     String countryS = countryF.getText();
                     database.join(countryS);
 
@@ -97,15 +98,17 @@ public class JoinTeamTables extends JFrame implements ActionListener {
                     this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(null,
-                            "Please ensure you have an input and it is not a number.",
+                            "Please ensure you have an input and it is neither a number or SQL code.",
                             "Error",
                             JOptionPane.WARNING_MESSAGE);
+                    this.dispose();
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,
                         "Please ensure you have valid inputs.",
                         "Error",
                         JOptionPane.WARNING_MESSAGE);
+                this.dispose();
             }
         }
     }

@@ -109,8 +109,7 @@ public class Projection2 extends JFrame implements ActionListener {
                     columnsChosen.add(selectedItem);
                 }
             }
-            System.out.println(columnsChosen);
-            new ViewTable(database, "PROJECTION", tableChosen, columnsChosen);
+            new ViewTable(database, tableChosen, columnsChosen);
             this.dispose();
         }
     }
