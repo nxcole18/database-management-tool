@@ -39,7 +39,7 @@ FROM Player;
 -- join
 SELECT Name, t1.Organization
 FROM Team1 t1, Team2 t2
-WHERE t1.Organization = t2.Organization AND t1.country = "CN";
+WHERE t1.Organization = t2.Organization AND t1.= "China";
 -- find teams which are based in China
 -- user can specify which country to choose
 
