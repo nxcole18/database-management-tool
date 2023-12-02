@@ -8,10 +8,10 @@ structures, formats, dates, and match results, as well as associated participant
 sponsors, commentators, and broadcasters.
 
 ## Milestone 4 deliverables
-Project report (written deliverables and query results): Milestone4-Group21.pdf
-SQL DDL and INSERT statements: ddl.sql
-Project tables: schema_and_tables.pdf
-Queries: demo_queries.sql
+* Project report (written deliverables and query results): Milestone4-Group21.pdf
+* SQL DDL and INSERT statements: ddl.sql
+* Project tables and schema: Milestone4-Group21-Tables.pdf, Milestone4-Group21-Schema.pdf
+* Queries: demo_queries.sql
 
 ## Sources
 Application is based on the following repository: https://github.students.cs.ubc.ca/CPSC304/CPSC304_Java_Project.
