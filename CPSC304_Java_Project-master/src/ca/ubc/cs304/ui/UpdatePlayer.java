@@ -49,7 +49,7 @@ public class UpdatePlayer extends JFrame implements ActionListener {
         JLabel ws = new JLabel("  ");
         ws.setForeground(Color.white);
 
-        submit = new JButton("Add");
+        submit = new JButton("Update");
         submit.setFont(new Font("Sans serif", Font.PLAIN, 13));
         submit.setBorderPainted(false);
         submit.setForeground(new Color(219, 229, 237));
