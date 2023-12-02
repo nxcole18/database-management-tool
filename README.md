@@ -9,8 +9,9 @@ sponsors, commentators, and broadcasters.
 
 ## Milestone 4 deliverables
 * Project report (written deliverables and query results): Milestone4-Group21.pdf
+* Cover page: Milestone4-Group21-Coverpage.pdf
 * SQL DDL and INSERT statements: ddl.sql
-* Project tables and schema: Milestone4-Group21-Tables.pdf, Milestone4-Group21-Schema.pdf
+* Project tables and schema (after SQL initialization): Milestone4-Group21-Tables.pdf, Milestone4-Group21-Schema.pdf
 * Queries: demo_queries.sql
 
 ## Sources
