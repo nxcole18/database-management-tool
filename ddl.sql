@@ -1,3 +1,18 @@
+drop table BROADCASTER cascade constraints;
+drop table BROADCASTS cascade constraints;
+drop table BUSINESSMEMBER cascade constraints;
+drop table COACH cascade constraints;
+drop table COMMENTATES cascade constraints;
+drop table COMMENTATOR cascade constraints;
+drop table MATCH1 cascade constraints;
+drop table MATCH2 cascade constraints;
+drop table PLAYER cascade constraints;
+drop table SPONSOR cascade constraints;
+drop table TEAM1 cascade constraints;
+drop table TEAM2 cascade constraints;
+drop table TOURNAMENT cascade constraints;
+drop table VENUE cascade constraints;
+
 CREATE TABLE Venue(
 	Name VARCHAR(50),
 	City VARCHAR(50), 
@@ -22,7 +37,9 @@ CREATE TABLE Team2(
 	Organization VARCHAR(50) NOT NULL,
 	FOREIGN KEY (Organization) REFERENCES Team1(Organization)
         ON DELETE CASCADE
+    -- trigger should implement "ON UPDATE CASCADE"
 );
+
 
 CREATE TABLE Tournament(
 	Name VARCHAR(50),
@@ -33,12 +50,15 @@ CREATE TABLE Tournament(
 	Venue_city VARCHAR(50),
     FOREIGN KEY (Venue_name, Venue_city) REFERENCES Venue(Name, city)
         ON DELETE SET NULL,
+    -- trigger should implement "ON UPDATE CASCADE"
 	Sponsor_ID INT,
 	FOREIGN KEY (Sponsor_ID) REFERENCES Sponsor(ID)
 		ON DELETE SET NULL,
+    -- trigger should implement "ON UPDATE CASCADE"
 	Winning_team INT,
 	FOREIGN KEY (Winning_team) REFERENCES Team2(ID)
 		ON DELETE SET NULL,
+    -- trigger should implement "ON UPDATE CASCADE"
 	PRIMARY KEY (Name, Start_date),
 	CHECK (End_date >= Start_date)
 ); 
@@ -54,17 +74,21 @@ CREATE TABLE Match2(
 	Tournament_start_date DATE NOT NULL,
 	FOREIGN KEY (Tournament_name, Tournament_Start_date) REFERENCES Tournament(Name, Start_date)
 		ON DELETE CASCADE,
+    -- trigger should implement "ON UPDATE CASCADE"
 	Start_time TIMESTAMP(0) NOT NULL,
 	Score VARCHAR(50) NOT NULL,
 	Team1 INT,
 	FOREIGN KEY (Team1) REFERENCES Team2(ID)
 		ON DELETE SET NULL,
+    -- trigger should implement "ON UPDATE CASCADE"
 	Team2 INT,
 	FOREIGN KEY (Team2) REFERENCES Team2(ID)
 		ON DELETE SET NULL,
+    -- trigger should implement "ON UPDATE CASCADE"
 	Winner INT,
 	FOREIGN KEY (Winner) REFERENCES Team2(ID)
 		ON DELETE SET NULL,
+    -- trigger should implement "ON UPDATE CASCADE"
 	Stage VARCHAR(50) NOT NULL,
 	FOREIGN KEY (Stage) REFERENCES Match1(Stage),
 	PRIMARY KEY (Match_Number, Tournament_name, Tournament_Start_date)
@@ -82,9 +106,11 @@ CREATE TABLE Commentates(
 	Tournament_start_date DATE,
 	FOREIGN KEY (Tournament_name, Tournament_start_date) REFERENCES Tournament(Name, Start_date)
 		ON DELETE CASCADE,
+    -- trigger should implement "ON UPDATE CASCADE"
 	Commentator_ID INT,
 	FOREIGN KEY (Commentator_ID) REFERENCES Commentator(ID)
 		ON DELETE CASCADE,
+    -- trigger should implement "ON UPDATE CASCADE"
 	PRIMARY KEY (Tournament_name, Tournament_start_date, Commentator_ID)
 );
 
@@ -98,9 +124,11 @@ CREATE TABLE Broadcasts(
 	Tournament_start_date DATE,
 	FOREIGN KEY (Tournament_name, Tournament_start_date) REFERENCES Tournament(Name, Start_date) 
 		ON DELETE CASCADE,
+    -- trigger should implement "ON UPDATE CASCADE"
 	Broadcaster_ID INT,
 	FOREIGN KEY (Broadcaster_ID) REFERENCES Broadcaster(ID) 
 		ON DELETE CASCADE,
+    -- trigger should implement "ON UPDATE CASCADE"
 	PRIMARY KEY(Tournament_name, Tournament_start_date, Broadcaster_ID)
 );
 
@@ -114,6 +142,7 @@ ID INT PRIMARY KEY,
 	Team_ID INT NOT NULL,
 	FOREIGN KEY (Team_ID) REFERENCES Team2(ID)
         ON DELETE CASCADE
+    -- trigger should implement "ON UPDATE CASCADE"
 );
 
 CREATE TABLE BusinessMember(
@@ -126,6 +155,7 @@ CREATE TABLE BusinessMember(
 	Team_ID INT NOT NULL,
 	FOREIGN KEY (Team_ID) REFERENCES Team2(ID)
         ON DELETE CASCADE
+    -- trigger should implement "ON UPDATE CASCADE"
 );
 
 CREATE TABLE Player(
@@ -138,6 +168,7 @@ CREATE TABLE Player(
 	Team_ID INT NOT NULL,
 	FOREIGN KEY (Team_ID) REFERENCES Team2(ID)
         ON DELETE CASCADE
+    -- trigger should implement "ON UPDATE CASCADE"
 );
 
 -- Insert statements

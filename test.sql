@@ -2,12 +2,13 @@
 
 -- use this to play around with queries and see results
 -- so you don't have to type everything again.
-CREATE VIEW Teams_with_experienced_coaches AS
-SELECT t.ID
-FROM Team2 t, Coach c
-WHERE t.ID = c.Team_ID AND c.Years_experience > 5;
+CREATE TABLE Testing(
+    Id INT PRIMARY KEY ,
+    Name VARCHAR(50),
+);
 
-SELECT Winner, COUNT(*) AS matches_won
-FROM Match2
-GROUP BY winner
-HAVING winner NOT IN (SELECT ID FROM Teams_with_experienced_coaches);
+INSERT INTO Testing		VALUES (11, 'Thanks bro');
+INSERT INTO Testing		VALUES (22, 'ilysmbidkaaasigst');
+INSERT INTO Testing		VALUES (33, 'Merry Christmas');
+INSERT INTO Testing		VALUES (44, '42424242');
+INSERT INTO Testing		VALUES (55, 'invest in bitcoin :)');
