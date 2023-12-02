@@ -3,8 +3,8 @@
 -- use this to play around with queries and see results
 -- so you don't have to type everything again.
 CREATE TABLE Testing(
-                        Id INT PRIMARY KEY ,
-                        Name VARCHAR(50),
+    Id INT PRIMARY KEY ,
+    Name VARCHAR(50),
 );
 
 INSERT INTO Testing		VALUES (11, 'Thanks bro');
