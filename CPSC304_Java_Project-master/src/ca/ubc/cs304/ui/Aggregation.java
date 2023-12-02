@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class Aggregation extends JFrame implements ActionListener {
     private JComboBox aggQueries;
@@ -50,8 +53,7 @@ public class Aggregation extends JFrame implements ActionListener {
 
         String[] choices = {"GROUP BY", "HAVING", "NESTED GROUP BY"};
         aggQueries = new JComboBox(choices);
-
-        //guard
+        aggQueries.addActionListener(this);
 
         JLabel[] labels = {team};
         for (JLabel l : labels) {
@@ -86,6 +88,42 @@ public class Aggregation extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==submit) {
+            String selectedQuery = (String) aggQueries.getSelectedItem();
+            if (Objects.equals(selectedQuery, "GROUP BY")) {
+                try {
+                    ArrayList<ArrayList<String>> results = database.aggGroupBy();
+                    new ViewTable2(database, results);
+                    this.dispose();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null,
+                            "Error producing query.",
+                            "Error",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            } else if (Objects.equals(selectedQuery, "HAVING")) {
+                try {
+                    ArrayList<ArrayList<String>> results = database.aggGroupByHaving();
+                    new ViewTable2(database, results);
+                    this.dispose();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null,
+                            "Error producing query.",
+                            "Error",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+                // new ViewTable(database, table, columns);
+            } else if (Objects.equals(selectedQuery, "NESTED GROUP BY")) {
+                try {
+                    ArrayList<ArrayList<String>> results = database.nested();
+                    new ViewTable2(database, results);
+                    this.dispose();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null,
+                            "Error producing query.",
+                            "Error",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            }
         }
     }
 }

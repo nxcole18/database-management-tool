@@ -1,11 +1,10 @@
 -- sqlplus ora_ethanz01@stu
 
 -- insert
-INSERT INTO Player 
+INSERT INTO Player
 VALUES (998, 'Jack', 'Zhen', 'Canada', DATE '2023-09-05', 10300, 101);
 
 -- Should trigger error because team doesn't exist. Should be able to handle that
-INSERT INTO Player 
 VALUES (998, 'Nave', 'Ecatz', 'Canada', DATE '2023-04-05', 10400, 109);
 
 -- use function: insertPlayer
@@ -68,7 +67,7 @@ SELECT Winner, COUNT(*) AS matches_won
 FROM Match2
 GROUP BY winner
 HAVING winner NOT IN (SELECT ID FROM Teams_with_experienced_coaches);
--- finding how many matches each team with an unexperienced coach 
+-- finding how many matches each team with an unexperienced coach
 -- (defined by having 5 or less years experience) has won
 
 

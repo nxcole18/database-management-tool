@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class MainMenu extends JFrame implements ActionListener {
     private static final int WIDTH = 580;
@@ -136,7 +138,6 @@ public class MainMenu extends JFrame implements ActionListener {
 
     private void initButtonListeners() {
         ActionListener insertButtonListener = e -> new AddPlayer(database);
-
         insertPlayer.addActionListener(insertButtonListener);
 
         ActionListener deleteButtonListener = e -> new DeleteTeam(database);
@@ -145,8 +146,8 @@ public class MainMenu extends JFrame implements ActionListener {
         ActionListener updateButtonListener = e -> new UpdatePlayer(database);
         updateButton.addActionListener(updateButtonListener);
 
-        ActionListener viewButtonListener = e -> new Selection(database);
-        viewButton.addActionListener(viewButtonListener);
+        //ActionListener viewButtonListener = e -> new Selection(database);
+        //viewButton.addActionListener(viewButtonListener);
 
         ActionListener viewButton1Listener = e -> new Projection(database);
         viewButton1.addActionListener(viewButton1Listener);
@@ -156,6 +157,24 @@ public class MainMenu extends JFrame implements ActionListener {
 
         ActionListener viewButton3Listener = e -> new Aggregation(database);
         viewButton3.addActionListener(viewButton3Listener);
+
+        ActionListener viewButton4Listener = e -> {
+            ArrayList<ArrayList<String>> results = initDivisionFunction();
+            new ViewTable2(database, results);
+        };
+        viewButton4.addActionListener(viewButton4Listener);
+    }
+
+    private ArrayList<ArrayList<String>> initDivisionFunction() {
+        try {
+            return database.division();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,
+                    "Error with division query.",
+                    "Error",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+        return null;
     }
 
     @Override

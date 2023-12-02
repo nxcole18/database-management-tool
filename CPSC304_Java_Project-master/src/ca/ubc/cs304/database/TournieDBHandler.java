@@ -248,6 +248,7 @@ public class TournieDBHandler {
             ResultSet rs = ps.executeQuery();
 
             ArrayList<ArrayList<String>> res = new ArrayList<>();
+            res.add(columns);
 
             while (rs.next()) {
                 ArrayList<String> row = new ArrayList<>();
@@ -276,6 +277,84 @@ public class TournieDBHandler {
             ResultSet rs = ps.executeQuery();
 
             ArrayList<ArrayList<String>> res = new ArrayList<>();
+            ArrayList<String> cols = new ArrayList<>();
+            cols.add("Team Name");
+            cols.add("Organization");
+            res.add(cols);
+
+            if (rs == null) {
+                System.out.println("null");
+            }
+
+            while (rs.next()) {
+                ArrayList<String> row = new ArrayList<>();
+                for (int i = 1; i < 3; i++) {
+                    row.add(rs.getObject(i).toString());
+                }
+                res.add(row);
+            }
+
+            connection.commit();
+            rs.close();
+            ps.close();
+            return res;
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+            throw e;
+        }
+    }
+
+    public ArrayList<ArrayList<String>> aggGroupBy() throws SQLException {
+        try {
+            String query = "SELECT Team_ID, AVG(ranking) AS Average_Team_Ranking FROM Player GROUP BY Team_ID";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<ArrayList<String>> res = new ArrayList<>();
+            ArrayList<String> cols = new ArrayList<>();
+            cols.add("Team_ID");
+            cols.add("Average_Team_Ranking");
+            res.add(cols);
+
+            if (rs == null) {
+                System.out.println("null");
+            }
+
+            while (rs.next()) {
+                ArrayList<String> row = new ArrayList<>();
+                for (int i = 1; i < 3; i++) {
+                    row.add(rs.getObject(i).toString());
+                }
+                res.add(row);
+            }
+
+            connection.commit();
+            rs.close();
+            ps.close();
+            return res;
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+            throw e;
+        }
+    }
+
+    public ArrayList<ArrayList<String>> aggGroupByHaving() throws SQLException {
+        try {
+            String query = "SELECT v.City, AVG(Capacity) AS avg_capacity " +
+                    "FROM Tournament t, Venue v " +
+                    "WHERE t.Venue_name = v.Name AND t.Venue_city = v.City " +
+                    "GROUP BY v.City " +
+                    "HAVING COUNT(*) < 2";
+            PrintablePreparedStatement ps = new PrintablePreparedStatement(connection.prepareStatement(query), query, false);
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<ArrayList<String>> res = new ArrayList<>();
+            ArrayList<String> cols = new ArrayList<>();
+            cols.add("City");
+            cols.add("Average_Venue_Capacity");
+            res.add(cols);
 
             if (rs == null) {
                 System.out.println("null");
@@ -378,6 +457,10 @@ public class TournieDBHandler {
             ResultSet rs = ps.executeQuery();
 
             ArrayList<ArrayList<String>> res = new ArrayList<>();
+            ArrayList<String> cols = new ArrayList<>();
+            cols.add("Winner");
+            cols.add("Count_Matches_Won");
+            res.add(cols);
 
             if (rs == null) {
                 System.out.println("null");
@@ -419,6 +502,10 @@ public class TournieDBHandler {
             ResultSet rs = ps.executeQuery();
 
             ArrayList<ArrayList<String>> res = new ArrayList<>();
+            ArrayList<String> cols = new ArrayList<>();
+            cols.add("Broadcaster_ID");
+            cols.add("Broadcaster_Organization");
+            res.add(cols);
 
             if (rs == null) {
                 System.out.println("null");
