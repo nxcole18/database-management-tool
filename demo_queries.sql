@@ -2,11 +2,11 @@
 
 -- insert
 INSERT INTO Player
-VALUES (998, ''Jack'', ''Zhen'', ''Canada'', DATE ''2023 - 09 - 05 '', 10300, 101);
+VALUES (998, 'Jack', 'Zhen', 'Canada', DATE '2023-09-05', 10300, 101);
 
--- Should trigger error because team doesn''t exist. Should be able to handle that
+-- Should trigger error because team doesn't exist. Should be able to handle that
 INSERT INTO Player
-VALUES (998, ''Nave'', ''Ecatz'', ''Canada'', DATE ''2023 - 04 - 05 '', 10400, 109);
+VALUES (998, 'Nave', 'Ecatz', 'Canada', DATE '2023-04-05', 10400, 109);
 
 -- use function: insertPlayer
 
@@ -20,8 +20,7 @@ WHERE ID = 998;
 -- use set of functions: updatePlayerId, updatePlayerFirstName etc.
 
 -- delete
-DELETE
-FROM Team2
+DELETE FROM Team2
 where ID = 102;
 -- cascades and deletes players and sets tournament winner to null
 -- use function: deletePlayer
@@ -39,10 +38,8 @@ FROM Player;
 
 -- join
 SELECT Name, t1.Organization
-FROM Team1 t1,
-     Team2 t2
-WHERE t1.Organization = t2.Organization
-  AND t1.country = "CN";
+FROM Team1 t1, Team2 t2
+WHERE t1.Organization = t2.Organization AND t1.= "China";
 -- find teams which are based in China
 -- user can specify which country to choose
 
@@ -54,10 +51,8 @@ GROUP BY Team_ID;
 
 -- having aggregation
 SELECT v.City, AVG(Capacity) AS avg_capacity
-FROM Tournament t,
-     Venue v
-WHERE t.Venue_name = v.Name
-  AND t.Venue_city = v.City
+FROM Tournament t, Venue v
+WHERE t.Venue_name = v.Name AND t.Venue_city = v.City
 GROUP BY v.City
 HAVING COUNT(*) < 2;
 -- might change later to > 5 or something to get bigger venues if we have more entries
@@ -66,10 +61,8 @@ HAVING COUNT(*) < 2;
 
 CREATE VIEW Teams_with_experienced_coaches AS
 SELECT t.ID
-FROM Team2 t,
-     Coach c
-WHERE t.ID = c.Team_ID
-  AND c.Years_experience > 5;
+FROM Team2 t, Coach c
+WHERE t.ID = c.Team_ID AND c.Years_experience > 5;
 
 SELECT Winner, COUNT(*) AS matches_won
 FROM Match2
@@ -83,14 +76,12 @@ HAVING winner NOT IN (SELECT ID FROM Teams_with_experienced_coaches);
 -- Find all broadcasters that have broadcasted all the tournaments, name the ID and organization
 SELECT DISTINCT B.ID, B.Organization
 FROM Broadcaster B
-WHERE NOT EXISTS(
+WHERE NOT EXISTS (
         SELECT T.Name, T.Start_date
         FROM Tournament T
-        WHERE NOT EXISTS(
+        WHERE NOT EXISTS (
                 SELECT *
                 FROM Broadcasts R
-                WHERE R.Tournament_name = T.Name
-                  AND R.Tournament_start_date = T.Start_date
-                  AND R.Broadcaster_ID = B.ID
+                WHERE R.Tournament_name=T.Name AND R.Tournament_start_date=T.Start_date AND R.Broadcaster_ID = B.ID
             )
     );

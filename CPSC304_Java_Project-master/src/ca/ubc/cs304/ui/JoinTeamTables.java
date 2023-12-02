@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class JoinTeamTables extends JFrame implements ActionListener {
     private JTextField countryF;
@@ -88,12 +89,8 @@ public class JoinTeamTables extends JFrame implements ActionListener {
                 String sqlInjection = "\\b(SELECT|FROM|WHERE|HAVING|GROUP|INSERT|UPDATE|DELETE|AND|OR|DROP|ALTER|CREATE|UNION|JOIN)\\b";
                 if (countryF.getText() != null && !(countryF.getText().isEmpty()) && !(countryF.getText().matches("[0-9]+")) && !(countryF.getText().matches(sqlInjection))) {
                     String countryS = countryF.getText();
-                    database.join(countryS);
-
-                    JOptionPane.showMessageDialog(null,
-                            "Tables were successfully joined.",
-                            "Success",
-                            JOptionPane.PLAIN_MESSAGE);
+                    ArrayList<ArrayList<String>> results = database.join(countryS);
+                    new ViewTable2(database, results);
 
                     this.dispose();
                 } else {

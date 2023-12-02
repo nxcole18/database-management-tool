@@ -248,6 +248,7 @@ public class TournieDBHandler {
             ResultSet rs = ps.executeQuery();
 
             ArrayList<ArrayList<String>> res = new ArrayList<>();
+            res.add(columns);
 
             while (rs.next()) {
                 ArrayList<String> row = new ArrayList<>();
@@ -276,6 +277,10 @@ public class TournieDBHandler {
             ResultSet rs = ps.executeQuery();
 
             ArrayList<ArrayList<String>> res = new ArrayList<>();
+            ArrayList<String> cols = new ArrayList<>();
+            cols.add("Team Name");
+            cols.add("Organization");
+            res.add(cols);
 
             if (rs == null) {
                 System.out.println("null");
@@ -307,6 +312,10 @@ public class TournieDBHandler {
             ResultSet rs = ps.executeQuery();
 
             ArrayList<ArrayList<String>> res = new ArrayList<>();
+            ArrayList<String> cols = new ArrayList<>();
+            cols.add("Team_ID");
+            cols.add("Average_Team_Ranking");
+            res.add(cols);
 
             if (rs == null) {
                 System.out.println("null");
@@ -343,8 +352,8 @@ public class TournieDBHandler {
 
             ArrayList<ArrayList<String>> res = new ArrayList<>();
             ArrayList<String> cols = new ArrayList<>();
-            cols.add("Team_Id");
-            cols.add("Average_Team_Ranking");
+            cols.add("City");
+            cols.add("Average_Venue_Capacity");
             res.add(cols);
 
             if (rs == null) {
@@ -382,6 +391,10 @@ public class TournieDBHandler {
             ResultSet rs = ps.executeQuery();
 
             ArrayList<ArrayList<String>> res = new ArrayList<>();
+            ArrayList<String> cols = new ArrayList<>();
+            cols.add("Winner");
+            cols.add("Count_Matches_Won");
+            res.add(cols);
 
             if (rs == null) {
                 System.out.println("null");
@@ -423,6 +436,10 @@ public class TournieDBHandler {
             ResultSet rs = ps.executeQuery();
 
             ArrayList<ArrayList<String>> res = new ArrayList<>();
+            ArrayList<String> cols = new ArrayList<>();
+            cols.add("Broadcaster_ID");
+            cols.add("Broadcaster_Organization");
+            res.add(cols);
 
             if (rs == null) {
                 System.out.println("null");
