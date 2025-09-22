@@ -1,4 +1,4 @@
-# Sports Tournament Database
+# Sports Tournament Database Manager
 
 ## Summary
 
